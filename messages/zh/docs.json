@@ -1,1 +1,33 @@
-{}
+{
+  "code": "NCC-08-01",
+  "pageTitle": "文件",
+  "title": "附件文件",
+  "unavailable": "无法连接到华辉。请稍后再试。",
+  "pickOrder": "选择采购订单",
+  "view": "查看",
+  "openOrder": "打开订单",
+  "noOrders": "暂无可附加文件的采购订单。",
+  "empty": "暂无文件。",
+  "docType": "文件类型",
+  "file": "文件",
+  "upload": "上传",
+  "remove": "移除",
+  "hint": "支持 PDF、JPG/PNG 图片、Excel、CSV，每个文件最大 10 MB。文件在发送给华辉之前会经过安全检查。",
+  "type": { "HOA_DON": "发票", "PACKING_LIST": "装箱单", "CHUNG_TU_GIAO_HANG": "送货单据", "PHAN_HOI": "投诉回复文件", "KHAC": "其他" },
+  "ok": { "uploaded": "文件已上传。", "deleted": "文件已移除。" },
+  "err": {
+    "noFile": "请选择文件。",
+    "invalid": "上传信息无效。",
+    "notFound": "未找到订单或文件。",
+    "size": "文件超过大小限制。",
+    "up_ext": "文件格式不允许（PDF、JPG/PNG、Excel、CSV）。",
+    "up_size": "文件超过大小限制。",
+    "up_empty": "文件为空。",
+    "up_magic": "文件内容与扩展名不符。",
+    "up_virus": "文件疑似含有恶意代码，已被拦截。",
+    "up_scanner": "无法扫描该文件，请重试。",
+    "unavailable": "无法连接到华辉。请稍后再试。",
+    "suspended": "供应商账户已暂停，请联系华辉。",
+    "failed": "操作失败，请重试。"
+  }
+}

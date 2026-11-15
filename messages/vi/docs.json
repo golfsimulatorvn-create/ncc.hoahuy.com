@@ -1,1 +1,33 @@
-{}
+{
+  "code": "NCC-08-01",
+  "pageTitle": "Chứng từ",
+  "title": "Chứng từ đính kèm",
+  "unavailable": "Không kết nối được tới Hoa Huy. Vui lòng thử lại sau ít phút.",
+  "pickOrder": "Chọn đơn mua hàng",
+  "view": "Xem",
+  "openOrder": "Mở đơn mua",
+  "noOrders": "Chưa có đơn mua hàng nào để đính kèm chứng từ.",
+  "empty": "Chưa có chứng từ nào.",
+  "docType": "Loại chứng từ",
+  "file": "Tệp",
+  "upload": "Tải lên",
+  "remove": "Gỡ",
+  "hint": "Chấp nhận PDF, ảnh JPG/PNG, Excel, CSV; tối đa 10 MB mỗi tệp. Tệp được kiểm tra an toàn trước khi gửi cho Hoa Huy.",
+  "type": { "HOA_DON": "Hóa đơn", "PACKING_LIST": "Packing list", "CHUNG_TU_GIAO_HANG": "Chứng từ giao hàng", "PHAN_HOI": "Tệp phản hồi khiếu nại", "KHAC": "Khác" },
+  "ok": { "uploaded": "Đã tải chứng từ lên.", "deleted": "Đã gỡ chứng từ." },
+  "err": {
+    "noFile": "Vui lòng chọn tệp.",
+    "invalid": "Thông tin tải lên không hợp lệ.",
+    "notFound": "Không tìm thấy đơn hoặc chứng từ.",
+    "size": "Tệp vượt quá giới hạn dung lượng.",
+    "up_ext": "Tệp không đúng định dạng cho phép (PDF, ảnh JPG/PNG, Excel, CSV).",
+    "up_size": "Tệp vượt quá giới hạn dung lượng.",
+    "up_empty": "Tệp rỗng.",
+    "up_magic": "Nội dung tệp không khớp với đuôi tệp.",
+    "up_virus": "Tệp bị chặn vì nghi chứa mã độc.",
+    "up_scanner": "Không quét được tệp, vui lòng thử lại.",
+    "unavailable": "Không kết nối được tới Hoa Huy. Vui lòng thử lại sau ít phút.",
+    "suspended": "Tài khoản nhà cung cấp đang tạm ngừng. Vui lòng liên hệ Hoa Huy.",
+    "failed": "Không thực hiện được. Vui lòng thử lại."
+  }
+}

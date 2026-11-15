@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import { can } from "@/server/permissions";
+import { DocsBlock } from "@/components/DocsBlock";
 import { CrmError } from "@/server/crmClient";
 import { getOrder, type OrderDetail } from "@/server/crmOrders";
 import { requirePerm } from "@/server/session";
@@ -9,7 +10,7 @@ import { confirmOrderAction, subVendorAction } from "../actions";
 import { fmtDate, fmtMoney, STATUS_CHIP } from "../format";
 
 /** NCC-02-02 Chi tiet don mua hang (mockup man 4). Gia/tien/thanh toan chi co khi CRM tra (Quan tri NCC). Khong co o sua gia. */
-export default async function OrderDetailPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ ok?: string; err?: string }> }) {
+export default async function OrderDetailPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ ok?: string; err?: string; dok?: string; derr?: string }> }) {
   const me = await requirePerm("orders.view");
   const t = await getTranslations("orders");
   const locale = await getLocale();
@@ -133,6 +134,8 @@ export default async function OrderDetailPage({ params, searchParams }: { params
           </table>
         </section>
       )}
+
+      {can(me.role, "docs.view") && <DocsBlock me={me} entityType="PURCHASE_ORDER" entityId={o.id} back={`/don-mua/${o.id}`} dok={sp.dok} derr={sp.derr} />}
     </div>
   );
 }

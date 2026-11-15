@@ -1,1 +1,33 @@
-{}
+{
+  "code": "NCC-08-01",
+  "pageTitle": "Documents",
+  "title": "Attached documents",
+  "unavailable": "Cannot reach Hoa Huy. Please try again in a few minutes.",
+  "pickOrder": "Choose a purchase order",
+  "view": "View",
+  "openOrder": "Open order",
+  "noOrders": "There is no purchase order to attach documents to yet.",
+  "empty": "No documents yet.",
+  "docType": "Document type",
+  "file": "File",
+  "upload": "Upload",
+  "remove": "Remove",
+  "hint": "PDF, JPG/PNG images, Excel and CSV are accepted, up to 10 MB per file. Files are safety-checked before they reach Hoa Huy.",
+  "type": { "HOA_DON": "Invoice", "PACKING_LIST": "Packing list", "CHUNG_TU_GIAO_HANG": "Delivery document", "PHAN_HOI": "Claim response file", "KHAC": "Other" },
+  "ok": { "uploaded": "Document uploaded.", "deleted": "Document removed." },
+  "err": {
+    "noFile": "Please choose a file.",
+    "invalid": "The upload information is invalid.",
+    "notFound": "Order or document not found.",
+    "size": "The file exceeds the size limit.",
+    "up_ext": "The file type is not allowed (PDF, JPG/PNG, Excel, CSV).",
+    "up_size": "The file exceeds the size limit.",
+    "up_empty": "The file is empty.",
+    "up_magic": "The file content does not match its extension.",
+    "up_virus": "The file was blocked because it may contain malware.",
+    "up_scanner": "The file could not be scanned. Please try again.",
+    "unavailable": "Cannot reach Hoa Huy. Please try again in a few minutes.",
+    "suspended": "The supplier account is suspended. Please contact Hoa Huy.",
+    "failed": "Could not complete the action. Please try again."
+  }
+}
