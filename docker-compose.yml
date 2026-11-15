@@ -1,0 +1,57 @@
+# Cong NCC: app + postgres rieng + clamd. Bien moi truong that nam o .env (KHONG commit; mau: .env.example).
+# Chay: docker compose build && docker compose run --rm migrate && docker compose up -d app
+# Cong chi lang nghe 127.0.0.1:3200; reverse proxy (nginx/caddy) cua VPS dua ncc.hoahuy.com vao day qua HTTPS.
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: portal
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?dat DB_PASSWORD trong .env}
+      POSTGRES_DB: hoahuy_portal
+    volumes:
+      - portal_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U portal -d hoahuy_portal"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+
+  clamd:
+    image: clamav/clamav:stable
+    restart: unless-stopped
+    volumes:
+      - portal_clam:/var/lib/clamav
+    healthcheck:
+      test: ["CMD", "clamdcheck.sh"]
+      interval: 60s
+      timeout: 10s
+      retries: 10
+      start_period: 180s
+
+  migrate:
+    build: { context: ., target: build }
+    profiles: ["tools"]
+    depends_on:
+      db: { condition: service_healthy }
+    environment:
+      DATABASE_URL: postgresql://portal:${DB_PASSWORD}@db:5432/hoahuy_portal?schema=public
+    command: ["npx", "prisma", "migrate", "deploy"]
+
+  app:
+    build: { context: ., target: runner }
+    restart: unless-stopped
+    depends_on:
+      db: { condition: service_healthy }
+      clamd: { condition: service_started }
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://portal:${DB_PASSWORD}@db:5432/hoahuy_portal?schema=public
+      CLAMD_HOST: clamd
+      CLAMD_PORT: "3310"
+    ports:
+      - "127.0.0.1:3200:3200"
+
+volumes:
+  portal_pg:
+  portal_clam:

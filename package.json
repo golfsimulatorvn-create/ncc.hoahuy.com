@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
+    "@swc/helpers": "^0.5.24",
     "bcryptjs": "^2.4.3",
     "next": "^15.5.4",
     "next-intl": "4.14.9",
