@@ -1,0 +1,26 @@
+{
+  "appName": "Supplier Portal",
+  "brand": "HOA HUY",
+  "logout": "Sign out",
+  "back": "Back",
+  "save": "Save",
+  "cancel": "Cancel",
+  "send": "Submit",
+  "loading": "Loading…",
+  "none": "No data.",
+  "yes": "Yes",
+  "no": "No",
+  "language": "Language",
+  "supplierCode": "Supplier code: {code}",
+  "role": {
+    "ADMIN": "Supplier admin",
+    "STAFF": "Staff",
+    "VIEWER": "View only",
+    "COST_VIEWER": "Input prices only"
+  },
+  "userStatus": {
+    "INVITED": "Invited, awaiting activation",
+    "ACTIVE": "Active",
+    "LOCKED": "Locked"
+  }
+}

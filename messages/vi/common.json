@@ -1,0 +1,26 @@
+{
+  "appName": "Cổng nhà cung cấp",
+  "brand": "HOA HUY",
+  "logout": "Đăng xuất",
+  "back": "Quay lại",
+  "save": "Lưu",
+  "cancel": "Hủy",
+  "send": "Gửi",
+  "loading": "Đang tải…",
+  "none": "Không có dữ liệu.",
+  "yes": "Có",
+  "no": "Không",
+  "language": "Ngôn ngữ",
+  "supplierCode": "Mã NCC: {code}",
+  "role": {
+    "ADMIN": "Quản trị NCC",
+    "STAFF": "Nhân viên",
+    "VIEWER": "Chỉ xem",
+    "COST_VIEWER": "Xem giá đầu vào"
+  },
+  "userStatus": {
+    "INVITED": "Đã mời, chờ kích hoạt",
+    "ACTIVE": "Đang hoạt động",
+    "LOCKED": "Đã khóa"
+  }
+}

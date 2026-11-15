@@ -1,0 +1,18 @@
+{
+  "generic": "出错了，请重试。",
+  "forbidden": "您无权查看此页面。",
+  "notFound": "未找到。",
+  "crmUnavailable": "无法连接 Hoa Huy。您刚输入的内容仍保留在屏幕上，请稍后重试。",
+  "suspended": "供应商账号已暂停，请联系 Hoa Huy。",
+  "roleForbidden": "您的角色无权执行此操作。",
+  "rateLimited": "操作过快，请稍后再试。",
+  "conflict": "数据已变化，请刷新页面。",
+  "upload": {
+    "ext": "文件格式不允许（仅限 PDF、JPG/PNG 图片、Excel、CSV）。",
+    "size": "文件超过大小限制。",
+    "empty": "文件为空。",
+    "magic": "文件内容与扩展名不符。",
+    "virus": "文件疑似含有恶意代码，已被拦截。",
+    "scanner": "无法扫描文件，请重试。"
+  }
+}

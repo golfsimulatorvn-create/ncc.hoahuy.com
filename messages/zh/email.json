@@ -1,0 +1,27 @@
+{
+  "footer": "此邮件由 Hoa Huy 供应商门户自动发送，请勿回复。",
+  "invite": {
+    "subject": "Hoa Huy：邀请激活供应商门户账号",
+    "body": "您好 {name}，\n\n您被邀请使用 Hoa Huy 供应商门户（{supplier}）。\n请点击下方链接设置密码（{hours} 小时内有效）：\n{link}"
+  },
+  "otp": {
+    "subject": "Hoa Huy：验证码 {code}",
+    "body": "您好 {name}，\n\n您的验证码是 {code}，{minutes} 分钟内有效。\n请勿向任何人透露此验证码。"
+  },
+  "reset": {
+    "subject": "Hoa Huy：重置供应商门户密码",
+    "body": "您好 {name}，\n\n请点击下方链接重置密码（{hours} 小时内有效）。如非您本人操作，请忽略此邮件：\n{link}"
+  },
+  "newDevice": {
+    "subject": "Hoa Huy：新设备登录提醒",
+    "body": "您好 {name}，\n\n账号 {email} 刚在新设备上登录（IP {ip}，时间 {time}）。\n如非本人操作，请立即通过“忘记密码”修改密码，并通知公司管理员。"
+  },
+  "lockedUser": {
+    "subject": "Hoa Huy：账号已暂时锁定",
+    "body": "您好 {name}，\n\n因多次输错密码，您的账号已暂时锁定 {minutes} 分钟。如非本人操作，请通过“忘记密码”重置密码。"
+  },
+  "lockedAdmin": {
+    "subject": "Hoa Huy：有账号被暂时锁定",
+    "body": "您好 {name}，\n\n贵公司的账号 {user}（{email}）因多次输错密码已暂时锁定 {minutes} 分钟。"
+  }
+}

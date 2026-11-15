@@ -1,0 +1,18 @@
+{
+  "generic": "Có lỗi xảy ra. Vui lòng thử lại.",
+  "forbidden": "Bạn không có quyền xem trang này.",
+  "notFound": "Không tìm thấy.",
+  "crmUnavailable": "Không kết nối được tới Hoa Huy. Dữ liệu bạn vừa nhập vẫn còn trên màn hình, vui lòng thử lại sau ít phút.",
+  "suspended": "Tài khoản nhà cung cấp tạm ngừng. Vui lòng liên hệ Hoa Huy.",
+  "roleForbidden": "Vai trò của bạn không có quyền thực hiện thao tác này.",
+  "rateLimited": "Bạn thao tác quá nhanh, vui lòng thử lại sau ít phút.",
+  "conflict": "Dữ liệu đã thay đổi, vui lòng tải lại trang.",
+  "upload": {
+    "ext": "Tệp không đúng định dạng cho phép (PDF, ảnh JPG/PNG, Excel, CSV).",
+    "size": "Tệp vượt quá giới hạn dung lượng.",
+    "empty": "Tệp rỗng.",
+    "magic": "Nội dung tệp không khớp với đuôi tệp.",
+    "virus": "Tệp bị chặn vì nghi chứa mã độc.",
+    "scanner": "Không quét được tệp, vui lòng thử lại."
+  }
+}

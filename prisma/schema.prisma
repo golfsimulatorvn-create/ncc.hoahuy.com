@@ -1,0 +1,179 @@
+// Schema rieng cua Cong NCC (specs/054 o repo CRM, data-model.md phan B). KHONG chua du lieu nghiep vu cua Hoa Huy:
+// don mua, cong no, RFQ... luon doc truc tiep tu CRM qua API; o day chi co tai khoan, phien, nhat ky dang nhap.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PortalRole {
+  ADMIN // Quan tri NCC: xem toan bo, gom gia ban ra, cong no, bao gia RFQ, gia dau vao, nguoi dung
+  STAFF // Nhan vien: xac nhan don, ngay giao, khieu nai, chung tu, dien gia dau vao; KHONG thay gia ban ra
+  VIEWER // Chi xem: don, khieu nai (khong gia, khong sua)
+  COST_VIEWER // Chi xem gia dau vao
+}
+
+enum PortalUserStatus {
+  INVITED
+  ACTIVE
+  LOCKED
+}
+
+enum OtpPurpose {
+  ACTIVATE
+  LOGIN
+  RESET
+}
+
+/// 1 NCC o CRM duoc cap quyen vao cong. apiKeyEnc = API Key NCC ma hoa AES-256-GCM (khoa o CRED_ENC_KEY, khong o CSDL).
+model SupplierCredential {
+  id            Int       @id @default(autoincrement())
+  crmSupplierId Int       @unique
+  supplierCode  String
+  supplierName  String
+  apiKeyEnc     String?
+  keyVersion    Int       @default(1)
+  active        Boolean   @default(true) // false = tam ngung ca NCC (suspend) hoac thu hoi khoa
+  rotatedAt     DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  users SupplierUser[]
+
+  @@map("supplier_credentials")
+}
+
+model SupplierUser {
+  id               Int              @id @default(autoincrement())
+  credentialId     Int
+  email            String
+  displayName      String
+  role             PortalRole
+  locale           String           @default("vi")
+  passwordHash     String?
+  status           PortalUserStatus @default(INVITED)
+  failedLoginCount Int              @default(0)
+  lockedUntil      DateTime?
+  lastLoginAt      DateTime?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  deletedAt        DateTime?
+
+  credential SupplierCredential @relation(fields: [credentialId], references: [id])
+  sessions   Session[]
+  devices    DeviceToken[]
+  otps       OtpCode[]
+  invites    Invite[]
+
+  // Cung email co the thuoc 2 NCC khac nhau (2 tai khoan rieng), nhung khong trung trong cung 1 NCC.
+  @@unique([credentialId, email])
+  @@index([email])
+  @@map("supplier_users")
+}
+
+model Session {
+  id         String    @id // ngau nhien 32 byte base64url (gia tri cookie la chinh id nay, luu bam)
+  userId     Int
+  expiresAt  DateTime
+  lastSeenAt DateTime  @default(now())
+  ip         String?
+  userAgent  String?
+  createdAt  DateTime  @default(now())
+  revokedAt  DateTime?
+
+  user SupplierUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("portal_sessions")
+}
+
+/// Thiet bi da xac thuc (cookie ngau nhien, luu BAM): dang nhap tu thiet bi nay khong hoi ma OTP den khi het han/bi thu hoi.
+model DeviceToken {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  tokenHash String    @unique
+  label     String?
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  user SupplierUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("portal_device_tokens")
+}
+
+model OtpCode {
+  id        Int        @id @default(autoincrement())
+  userId    Int
+  purpose   OtpPurpose
+  codeHash  String
+  expiresAt DateTime
+  usedAt    DateTime?
+  attempts  Int        @default(0)
+  createdAt DateTime   @default(now())
+
+  user SupplierUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, purpose])
+  @@map("portal_otp_codes")
+}
+
+/// Loi moi / dat lai mat khau: token ngau nhien, luu BAM, dung 1 lan.
+model Invite {
+  id        Int        @id @default(autoincrement())
+  userId    Int
+  purpose   OtpPurpose @default(ACTIVATE)
+  tokenHash String     @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime   @default(now())
+
+  user SupplierUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("portal_invites")
+}
+
+model LoginAttempt {
+  id      Int      @id @default(autoincrement())
+  email   String
+  ip      String?
+  success Boolean
+  at      DateTime @default(now())
+
+  @@index([email, at])
+  @@index([ip, at])
+  @@map("portal_login_attempts")
+}
+
+/// Nhat ky hanh dong tren cong (ai, vai tro, lam gi, tren doi tuong nao). requestId doi chieu voi AuditLog.afterData.portal.requestId o CRM.
+model PortalAudit {
+  id         Int      @id @default(autoincrement())
+  requestId  String
+  userId     Int?
+  supplierId Int?
+  role       String?
+  action     String
+  entity     String?
+  entityId   String?
+  detail     Json?
+  ip         String?
+  at         DateTime @default(now())
+
+  @@index([supplierId, at])
+  @@index([userId, at])
+  @@map("portal_audit")
+}
+
+/// Nonce da dung cua admin-api (chong phat lai tu CRM -> cong).
+model UsedNonce {
+  nonce  String   @id
+  seenAt DateTime @default(now())
+
+  @@index([seenAt])
+  @@map("portal_used_nonces")
+}

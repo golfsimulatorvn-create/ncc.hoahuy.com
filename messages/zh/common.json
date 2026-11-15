@@ -1,0 +1,26 @@
+{
+  "appName": "供应商门户",
+  "brand": "HOA HUY",
+  "logout": "退出登录",
+  "back": "返回",
+  "save": "保存",
+  "cancel": "取消",
+  "send": "提交",
+  "loading": "加载中…",
+  "none": "暂无数据。",
+  "yes": "是",
+  "no": "否",
+  "language": "语言",
+  "supplierCode": "供应商编号：{code}",
+  "role": {
+    "ADMIN": "供应商管理员",
+    "STAFF": "员工",
+    "VIEWER": "只读",
+    "COST_VIEWER": "查看进价"
+  },
+  "userStatus": {
+    "INVITED": "已邀请，待激活",
+    "ACTIVE": "使用中",
+    "LOCKED": "已锁定"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "orders": "Purchase orders",
+  "rfq": "Quotation requests",
+  "payables": "Payables and payments",
+  "claims": "Claims and quality",
+  "docs": "Documents",
+  "costs": "Input prices",
+  "users": "Users",
+  "menu": "Menu"
+}

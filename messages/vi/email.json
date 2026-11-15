@@ -1,0 +1,27 @@
+{
+  "footer": "Thư tự động từ Cổng nhà cung cấp Hoa Huy. Vui lòng không trả lời thư này.",
+  "invite": {
+    "subject": "Hoa Huy: mời kích hoạt tài khoản Cổng nhà cung cấp",
+    "body": "Xin chào {name},\n\nBạn được mời dùng Cổng nhà cung cấp của Hoa Huy cho {supplier}.\nBấm liên kết dưới đây để đặt mật khẩu (hiệu lực {hours} giờ):\n{link}"
+  },
+  "otp": {
+    "subject": "Hoa Huy: mã xác thực {code}",
+    "body": "Xin chào {name},\n\nMã xác thực của bạn là {code}. Mã hết hạn sau {minutes} phút.\nKhông chia sẻ mã này với bất kỳ ai."
+  },
+  "reset": {
+    "subject": "Hoa Huy: đặt lại mật khẩu Cổng nhà cung cấp",
+    "body": "Xin chào {name},\n\nBấm liên kết dưới đây để đặt lại mật khẩu (hiệu lực {hours} giờ). Nếu không phải bạn yêu cầu, hãy bỏ qua thư này:\n{link}"
+  },
+  "newDevice": {
+    "subject": "Hoa Huy: đăng nhập từ thiết bị mới",
+    "body": "Xin chào {name},\n\nTài khoản {email} vừa đăng nhập từ một thiết bị mới (IP {ip}, lúc {time}).\nNếu không phải bạn, hãy đổi mật khẩu ngay bằng \"Quên mật khẩu\" và báo quản trị công ty."
+  },
+  "lockedUser": {
+    "subject": "Hoa Huy: tài khoản tạm khóa",
+    "body": "Xin chào {name},\n\nTài khoản của bạn tạm khóa {minutes} phút do nhập sai mật khẩu nhiều lần. Nếu không phải bạn, hãy đặt lại mật khẩu bằng \"Quên mật khẩu\"."
+  },
+  "lockedAdmin": {
+    "subject": "Hoa Huy: có tài khoản bị khóa tạm",
+    "body": "Xin chào {name},\n\nTài khoản {user} ({email}) của công ty bạn vừa bị khóa tạm {minutes} phút do nhập sai mật khẩu nhiều lần."
+  }
+}

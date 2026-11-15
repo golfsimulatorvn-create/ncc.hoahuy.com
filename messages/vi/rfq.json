@@ -1,0 +1,33 @@
+{
+  "code": "NCC-03-01",
+  "code2": "NCC-03-02",
+  "title": "Yêu cầu báo giá",
+  "rfq": "Mã yêu cầu",
+  "items": "Mặt hàng",
+  "more": "và {count} mặt hàng khác",
+  "due": "Hạn nộp báo giá",
+  "statusCol": "Trạng thái",
+  "note": "Ghi chú của Hoa Huy",
+  "empty": "Chưa có yêu cầu báo giá nào.",
+  "waiting": "Có {count} yêu cầu đang chờ bạn báo giá.",
+  "unavailable": "Không kết nối được tới Hoa Huy. Vui lòng thử lại sau ít phút.",
+  "adminOnly": "Chỉ Quản trị NCC được xem và nhập đơn giá báo giá.",
+  "item": "Mặt hàng",
+  "qty": "Số lượng",
+  "unitPrice": "Đơn giá chào",
+  "leadDays": "Số ngày giao",
+  "saveDraft": "Lưu nháp",
+  "submit": "Nộp báo giá",
+  "hint": "Bạn có thể sửa và nộp lại cho đến hết hạn. Nộp báo giá cần nhập đơn giá cho mọi dòng.",
+  "badge": { "open": "Chờ báo giá", "submitted": "Đã nộp", "expired": "Quá hạn", "won": "Trúng", "lost": "Không trúng", "cancelled": "Đã hủy" },
+  "ok": { "draft": "Đã lưu nháp.", "submitted": "Đã nộp báo giá." },
+  "err": {
+    "closed": "Yêu cầu báo giá đã hết hạn hoặc không còn nhận báo giá.",
+    "invalid": "Đơn giá hoặc số ngày giao không hợp lệ.",
+    "needPrice": "Vui lòng nhập ít nhất một đơn giá.",
+    "missing": "Cần nhập đơn giá cho mọi dòng trước khi nộp.",
+    "unavailable": "Không kết nối được tới Hoa Huy. Dữ liệu bạn nhập vẫn còn trên màn hình, hãy bấm lại sau ít phút.",
+    "suspended": "Tài khoản nhà cung cấp đang tạm ngừng. Vui lòng liên hệ Hoa Huy.",
+    "failed": "Không thực hiện được. Vui lòng thử lại."
+  }
+}

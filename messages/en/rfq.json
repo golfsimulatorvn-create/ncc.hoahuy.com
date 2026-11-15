@@ -1,0 +1,33 @@
+{
+  "code": "NCC-03-01",
+  "code2": "NCC-03-02",
+  "title": "Requests for quotation",
+  "rfq": "RFQ no.",
+  "items": "Items",
+  "more": "and {count} more",
+  "due": "Quote deadline",
+  "statusCol": "Status",
+  "note": "Note from Hoa Huy",
+  "empty": "No requests for quotation yet.",
+  "waiting": "{count} requests are waiting for your quote.",
+  "unavailable": "Cannot reach Hoa Huy. Please try again in a few minutes.",
+  "adminOnly": "Only the supplier Admin can view and enter quoted prices.",
+  "item": "Item",
+  "qty": "Quantity",
+  "unitPrice": "Quoted unit price",
+  "leadDays": "Lead time (days)",
+  "saveDraft": "Save draft",
+  "submit": "Submit quote",
+  "hint": "You can edit and resubmit until the deadline. Submitting requires a unit price on every line.",
+  "badge": { "open": "Awaiting quote", "submitted": "Submitted", "expired": "Expired", "won": "Won", "lost": "Not selected", "cancelled": "Cancelled" },
+  "ok": { "draft": "Draft saved.", "submitted": "Quote submitted." },
+  "err": {
+    "closed": "The RFQ has passed its deadline or no longer accepts quotes.",
+    "invalid": "Invalid unit price or lead time.",
+    "needPrice": "Please enter at least one unit price.",
+    "missing": "Enter a unit price on every line before submitting.",
+    "unavailable": "Cannot reach Hoa Huy. What you entered is still on screen; press the button again in a few minutes.",
+    "suspended": "The supplier account is suspended. Please contact Hoa Huy.",
+    "failed": "Could not complete the action. Please try again."
+  }
+}

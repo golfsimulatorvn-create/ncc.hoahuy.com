@@ -1,0 +1,18 @@
+{
+  "generic": "Something went wrong. Please try again.",
+  "forbidden": "You do not have permission to view this page.",
+  "notFound": "Not found.",
+  "crmUnavailable": "Cannot reach Hoa Huy. What you just entered is still on screen, please try again in a few minutes.",
+  "suspended": "The supplier account is suspended. Please contact Hoa Huy.",
+  "roleForbidden": "Your role is not allowed to do this.",
+  "rateLimited": "You are going too fast, please try again shortly.",
+  "conflict": "The data has changed, please reload the page.",
+  "upload": {
+    "ext": "File type not allowed (PDF, JPG/PNG images, Excel, CSV).",
+    "size": "The file exceeds the size limit.",
+    "empty": "The file is empty.",
+    "magic": "The file content does not match its extension.",
+    "virus": "The file was blocked because it may contain malware.",
+    "scanner": "The file could not be scanned, please try again."
+  }
+}
