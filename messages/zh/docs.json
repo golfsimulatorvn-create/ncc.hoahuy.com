@@ -1,7 +1,7 @@
 {
   "code": "NCC-08-01",
-  "pageTitle": "文件",
-  "title": "附件文件",
+  "pageTitle": "单据",
+  "title": "附件单据",
   "unavailable": "无法连接到华辉。请稍后再试。",
   "pickOrder": "选择采购订单",
   "view": "查看",
