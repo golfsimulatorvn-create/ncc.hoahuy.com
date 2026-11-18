@@ -33,9 +33,21 @@
   "subVendor": "Sub-supplier name (if another party supplies the goods)",
   "save": "Save",
   "payments": "Payments",
-  "payStatus": { "paid": "Paid", "planned": "Planned" },
-  "status": { "SENT": "Awaiting confirmation", "CONFIRMED": "Confirmed", "PARTIALLY_RECEIVED": "Partially received", "RECEIVED": "Fully received", "CANCELLED": "Cancelled" },
-  "ok": { "confirmed": "Order confirmed.", "saved": "Saved." },
+  "payStatus": {
+    "paid": "Paid",
+    "planned": "Planned"
+  },
+  "status": {
+    "SENT": "Awaiting confirmation",
+    "CONFIRMED": "Confirmed",
+    "PARTIALLY_RECEIVED": "Partially received",
+    "RECEIVED": "Fully received",
+    "CANCELLED": "Cancelled"
+  },
+  "ok": {
+    "confirmed": "Order confirmed.",
+    "saved": "Saved."
+  },
   "err": {
     "state": "The order is no longer awaiting confirmation. Please reload the page.",
     "unavailable": "Cannot reach Hoa Huy. What you entered is still on screen; press the button again in a few minutes.",
@@ -43,5 +55,8 @@
     "invalid": "Invalid data.",
     "needEta": "Please enter an estimated delivery date.",
     "failed": "Could not complete the action. Please try again."
-  }
+  },
+  "inputPrice": "Input price",
+  "enterCost": "Enter price",
+  "grossPct": "Gross margin {pct}%"
 }

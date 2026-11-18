@@ -19,8 +19,18 @@
   "saveDraft": "Lưu nháp",
   "submit": "Nộp báo giá",
   "hint": "Bạn có thể sửa và nộp lại cho đến hết hạn. Nộp báo giá cần nhập đơn giá cho mọi dòng.",
-  "badge": { "open": "Chờ báo giá", "submitted": "Đã nộp", "expired": "Quá hạn", "won": "Trúng", "lost": "Không trúng", "cancelled": "Đã hủy" },
-  "ok": { "draft": "Đã lưu nháp.", "submitted": "Đã nộp báo giá." },
+  "badge": {
+    "open": "Chờ báo giá",
+    "submitted": "Đã nộp",
+    "expired": "Quá hạn",
+    "won": "Trúng",
+    "lost": "Không trúng",
+    "cancelled": "Đã hủy"
+  },
+  "ok": {
+    "draft": "Đã lưu nháp.",
+    "submitted": "Đã nộp báo giá."
+  },
   "err": {
     "closed": "Yêu cầu báo giá đã hết hạn hoặc không còn nhận báo giá.",
     "invalid": "Đơn giá hoặc số ngày giao không hợp lệ.",
@@ -29,5 +39,8 @@
     "unavailable": "Không kết nối được tới Hoa Huy. Dữ liệu bạn nhập vẫn còn trên màn hình, hãy bấm lại sau ít phút.",
     "suspended": "Tài khoản nhà cung cấp đang tạm ngừng. Vui lòng liên hệ Hoa Huy.",
     "failed": "Không thực hiện được. Vui lòng thử lại."
-  }
+  },
+  "inputPrice": "Giá đầu vào",
+  "enterCost": "Nhập giá",
+  "grossPct": "Lãi gộp {pct}%"
 }

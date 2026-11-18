@@ -36,7 +36,9 @@
     "archived": "Supplier deleted.",
     "priceSaved": "Price saved.",
     "priceDeleted": "Price line deleted.",
-    "ledgerAdded": "Entry added."
+    "ledgerAdded": "Entry added.",
+    "costSaved": "Input prices saved.",
+    "nochange": "Nothing changed to save."
   },
   "err": {
     "invalid": "Invalid data.",
@@ -45,6 +47,33 @@
     "notFound": "Data not found.",
     "unavailable": "Cannot reach Hoa Huy. What you entered is still on screen; press the button again in a few minutes.",
     "suspended": "The supplier account is suspended. Please contact Hoa Huy.",
-    "failed": "Could not complete the action. Please try again."
+    "failed": "Could not complete the action. Please try again.",
+    "tooMany": "Up to 200 codes can be saved at once. Save page by page."
+  },
+  "code3": "NCC-05-03",
+  "tabSub": "Sub-suppliers",
+  "tabCode": "By Hoa Huy item code",
+  "byCode": {
+    "search": "Search by code or item name",
+    "onlyMissing": "Only codes without a price",
+    "missingCount": "{count} codes",
+    "filter": "Filter",
+    "item": "Code / item",
+    "qty": "Qty ordered",
+    "cost": "Input price",
+    "currency": "Currency",
+    "sell": "Price to Hoa Huy",
+    "gross": "Gross margin",
+    "enter": "Enter price",
+    "history": "History",
+    "historyOf": "Price history · {code}",
+    "noHistory": "No history yet.",
+    "none": "none",
+    "removed": "removed",
+    "empty": "No item codes in purchase orders or quote requests yet.",
+    "counter": "{shown} / {total} codes shown · {all} in total",
+    "prev": "Previous page",
+    "next": "Next page",
+    "save": "Save input prices"
   }
 }

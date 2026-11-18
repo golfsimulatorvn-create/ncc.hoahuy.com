@@ -19,8 +19,18 @@
   "saveDraft": "保存草稿",
   "submit": "提交报价",
   "hint": "截止前可修改并重新提交。提交报价需填写所有行的单价。",
-  "badge": { "open": "待报价", "submitted": "已提交", "expired": "已过期", "won": "中标", "lost": "未中标", "cancelled": "已取消" },
-  "ok": { "draft": "草稿已保存。", "submitted": "报价已提交。" },
+  "badge": {
+    "open": "待报价",
+    "submitted": "已提交",
+    "expired": "已过期",
+    "won": "中标",
+    "lost": "未中标",
+    "cancelled": "已取消"
+  },
+  "ok": {
+    "draft": "草稿已保存。",
+    "submitted": "报价已提交。"
+  },
   "err": {
     "closed": "询价单已截止或不再接受报价。",
     "invalid": "单价或交货天数无效。",
@@ -29,5 +39,8 @@
     "unavailable": "无法连接到华辉。您输入的内容仍保留在屏幕上，请稍后再点一次。",
     "suspended": "供应商账户已暂停，请联系华辉。",
     "failed": "操作失败，请重试。"
-  }
+  },
+  "inputPrice": "进货价",
+  "enterCost": "填写价格",
+  "grossPct": "毛利 {pct}%"
 }

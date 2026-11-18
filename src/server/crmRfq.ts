@@ -9,7 +9,7 @@ export type RfqRow = {
 };
 export type RfqDetail = {
   id: number; code: string; dueAt: string; status: string; note: string | null; result: "WON" | "LOST" | "CANCELLED" | null; submitted: boolean;
-  lines: { id: number; code: string; name: string; unit: string; qty: number; unitPrice?: number | null; leadTimeDays?: number | null }[];
+  lines: { id: number; code: string; name: string; unit: string; qty: number; unitPrice?: number | null; leadTimeDays?: number | null; inputPrice?: number; inputCurrency?: string; grossPct?: number; grossAmount?: number }[];
 };
 
 export const listRfqs = (u: PortalUser) => crmCall<RfqRow[]>(actorOf(u), { path: "/api/supplier/rfqs" });
