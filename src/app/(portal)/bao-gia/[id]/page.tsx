@@ -31,6 +31,7 @@ export default async function RfqQuotePage({ params, searchParams }: { params: P
   const isOpen = r.status === "DA_GUI" && new Date(r.dueAt).getTime() >= Date.now();
   const canQuote = can(me.role, "rfq.quote") && isOpen;
   const showPrice = r.lines.some((l) => "unitPrice" in l);
+  const showCost = can(me.role, "costs.view");
   const key = crypto.randomUUID();
 
   return (
@@ -58,6 +59,7 @@ export default async function RfqQuotePage({ params, searchParams }: { params: P
                 <th className="p-3 text-right font-semibold">{t("qty")}</th>
                 {showPrice && <th className="p-3 font-semibold">{t("unitPrice")}</th>}
                 {showPrice && <th className="p-3 font-semibold">{t("leadDays")}</th>}
+                {showCost && <th className="p-3 text-right font-semibold">{t("inputPrice")}</th>}
               </tr>
             </thead>
             <tbody>
@@ -77,6 +79,12 @@ export default async function RfqQuotePage({ params, searchParams }: { params: P
                       {canQuote
                         ? <input name={`lead_${l.id}`} inputMode="numeric" defaultValue={l.leadTimeDays ?? ""} aria-label={t("leadDays")} className="input w-24 py-1.5 text-right" />
                         : <span className="tabular-nums">{l.leadTimeDays ?? "—"}</span>}
+                    </td>
+                  )}
+                  {showCost && (
+                    <td className="p-3 text-right tabular-nums">
+                      {l.inputPrice !== undefined ? new Intl.NumberFormat(locale).format(l.inputPrice) : <Link href={`/gia-dau-vao/theo-ma?q=${encodeURIComponent(l.code)}`} className="text-accent">{t("enterCost")}</Link>}
+                      {l.grossPct !== undefined && <div className="text-[12px] text-ok-fg">{t("grossPct", { pct: new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(l.grossPct) })}</div>}
                     </td>
                   )}
                 </tr>

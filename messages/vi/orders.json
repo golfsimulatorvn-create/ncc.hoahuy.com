@@ -33,9 +33,21 @@
   "subVendor": "Tên NCC thứ cấp (nếu hàng do bên khác cung cấp)",
   "save": "Lưu",
   "payments": "Thanh toán",
-  "payStatus": { "paid": "Đã thanh toán", "planned": "Kế hoạch" },
-  "status": { "SENT": "Chờ xác nhận", "CONFIRMED": "Đã xác nhận", "PARTIALLY_RECEIVED": "Đã nhận một phần", "RECEIVED": "Đã nhận đủ", "CANCELLED": "Đã hủy" },
-  "ok": { "confirmed": "Đã xác nhận đơn.", "saved": "Đã lưu." },
+  "payStatus": {
+    "paid": "Đã thanh toán",
+    "planned": "Kế hoạch"
+  },
+  "status": {
+    "SENT": "Chờ xác nhận",
+    "CONFIRMED": "Đã xác nhận",
+    "PARTIALLY_RECEIVED": "Đã nhận một phần",
+    "RECEIVED": "Đã nhận đủ",
+    "CANCELLED": "Đã hủy"
+  },
+  "ok": {
+    "confirmed": "Đã xác nhận đơn.",
+    "saved": "Đã lưu."
+  },
   "err": {
     "state": "Đơn không còn ở trạng thái chờ xác nhận. Vui lòng tải lại trang.",
     "unavailable": "Không kết nối được tới Hoa Huy. Dữ liệu bạn nhập vẫn còn trên màn hình, hãy bấm lại sau ít phút.",
@@ -43,5 +55,8 @@
     "invalid": "Dữ liệu không hợp lệ.",
     "needEta": "Vui lòng nhập ngày giao dự kiến.",
     "failed": "Không thực hiện được. Vui lòng thử lại."
-  }
+  },
+  "inputPrice": "Giá đầu vào",
+  "enterCost": "Nhập giá",
+  "grossPct": "Lãi gộp {pct}%"
 }

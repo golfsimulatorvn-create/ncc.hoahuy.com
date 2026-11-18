@@ -33,9 +33,21 @@
   "subVendor": "二级供应商名称（如货物由他方提供）",
   "save": "保存",
   "payments": "付款",
-  "payStatus": { "paid": "已付款", "planned": "计划" },
-  "status": { "SENT": "待确认", "CONFIRMED": "已确认", "PARTIALLY_RECEIVED": "部分收货", "RECEIVED": "已全部收货", "CANCELLED": "已取消" },
-  "ok": { "confirmed": "订单已确认。", "saved": "已保存。" },
+  "payStatus": {
+    "paid": "已付款",
+    "planned": "计划"
+  },
+  "status": {
+    "SENT": "待确认",
+    "CONFIRMED": "已确认",
+    "PARTIALLY_RECEIVED": "部分收货",
+    "RECEIVED": "已全部收货",
+    "CANCELLED": "已取消"
+  },
+  "ok": {
+    "confirmed": "订单已确认。",
+    "saved": "已保存。"
+  },
   "err": {
     "state": "订单已不处于待确认状态，请刷新页面。",
     "unavailable": "无法连接到华辉。您输入的内容仍保留在屏幕上，请稍后再点一次。",
@@ -43,5 +55,8 @@
     "invalid": "数据无效。",
     "needEta": "请填写预计交期。",
     "failed": "操作失败，请重试。"
-  }
+  },
+  "inputPrice": "进货价",
+  "enterCost": "填写价格",
+  "grossPct": "毛利 {pct}%"
 }

@@ -19,8 +19,18 @@
   "saveDraft": "Save draft",
   "submit": "Submit quote",
   "hint": "You can edit and resubmit until the deadline. Submitting requires a unit price on every line.",
-  "badge": { "open": "Awaiting quote", "submitted": "Submitted", "expired": "Expired", "won": "Won", "lost": "Not selected", "cancelled": "Cancelled" },
-  "ok": { "draft": "Draft saved.", "submitted": "Quote submitted." },
+  "badge": {
+    "open": "Awaiting quote",
+    "submitted": "Submitted",
+    "expired": "Expired",
+    "won": "Won",
+    "lost": "Not selected",
+    "cancelled": "Cancelled"
+  },
+  "ok": {
+    "draft": "Draft saved.",
+    "submitted": "Quote submitted."
+  },
   "err": {
     "closed": "The RFQ has passed its deadline or no longer accepts quotes.",
     "invalid": "Invalid unit price or lead time.",
@@ -29,5 +39,8 @@
     "unavailable": "Cannot reach Hoa Huy. What you entered is still on screen; press the button again in a few minutes.",
     "suspended": "The supplier account is suspended. Please contact Hoa Huy.",
     "failed": "Could not complete the action. Please try again."
-  }
+  },
+  "inputPrice": "Input price",
+  "enterCost": "Enter price",
+  "grossPct": "Gross margin {pct}%"
 }

@@ -36,7 +36,9 @@
     "archived": "Đã xóa nhà cung cấp.",
     "priceSaved": "Đã lưu đơn giá.",
     "priceDeleted": "Đã xóa dòng giá.",
-    "ledgerAdded": "Đã thêm dòng sổ."
+    "ledgerAdded": "Đã thêm dòng sổ.",
+    "costSaved": "Đã lưu giá đầu vào.",
+    "nochange": "Không có thay đổi để lưu."
   },
   "err": {
     "invalid": "Dữ liệu không hợp lệ.",
@@ -45,6 +47,33 @@
     "notFound": "Không tìm thấy dữ liệu.",
     "unavailable": "Không kết nối được tới Hoa Huy. Dữ liệu bạn nhập vẫn còn trên màn hình, hãy bấm lại sau ít phút.",
     "suspended": "Tài khoản nhà cung cấp đang tạm ngừng. Vui lòng liên hệ Hoa Huy.",
-    "failed": "Không thực hiện được. Vui lòng thử lại."
+    "failed": "Không thực hiện được. Vui lòng thử lại.",
+    "tooMany": "Mỗi lần lưu có tối đa 200 mã. Hãy lưu từng trang."
+  },
+  "code3": "NCC-05-03",
+  "tabSub": "NCC thứ cấp",
+  "tabCode": "Theo mã hàng Hoa Huy",
+  "byCode": {
+    "search": "Tìm mã hoặc tên hàng (không cần dấu)",
+    "onlyMissing": "Chỉ mã chưa có giá",
+    "missingCount": "{count} mã",
+    "filter": "Lọc",
+    "item": "Mã / tên hàng",
+    "qty": "SL đã đặt",
+    "cost": "Giá đầu vào",
+    "currency": "Tiền tệ",
+    "sell": "Giá bán Hoa Huy",
+    "gross": "Lãi gộp",
+    "enter": "Nhập giá",
+    "history": "Lịch sử",
+    "historyOf": "Lịch sử đổi giá · {code}",
+    "noHistory": "Chưa có lịch sử.",
+    "none": "chưa có",
+    "removed": "đã bỏ giá",
+    "empty": "Chưa có mã hàng nào trong đơn mua hoặc yêu cầu báo giá.",
+    "counter": "{shown} / {total} mã đang lọc · tổng {all} mã",
+    "prev": "Trang trước",
+    "next": "Trang sau",
+    "save": "Lưu giá đầu vào"
   }
 }

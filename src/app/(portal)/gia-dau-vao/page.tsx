@@ -4,6 +4,7 @@ import { can } from "@/server/permissions";
 import { CrmError } from "@/server/crmClient";
 import { listSubVendors, type SubVendorRow } from "@/server/crmCosts";
 import { requirePerm } from "@/server/session";
+import { CostTabs } from "@/components/CostTabs";
 import { fmtMoney } from "../don-mua/format";
 import { createSubVendorAction } from "./actions";
 
@@ -22,6 +23,7 @@ export default async function CostsPage({ searchParams }: { searchParams: Promis
   return (
     <div className="grid min-w-0 gap-4">
       <div><div className="text-[11px] tracking-wider text-ink-muted">{t("code")}</div><h1 className="text-[20px] font-bold">{t("title")}</h1></div>
+      <CostTabs active="sub" />
       <p className="rounded-lg border border-info-bg bg-info-bg px-3 py-2 text-info-fg">{t("private")}</p>
       {failed && <p role="alert" className="rounded-lg bg-danger-bg px-3 py-2 text-danger-fg">{t("unavailable")}</p>}
       {sp.ok && <p role="status" className="rounded-lg bg-ok-bg px-3 py-2 text-ok-fg">{t(`ok.${sp.ok}` as never)}</p>}

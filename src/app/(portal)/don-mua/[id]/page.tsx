@@ -28,6 +28,7 @@ export default async function OrderDetailPage({ params, searchParams }: { params
     throw e;
   }
   const showPrice = o.lines.some((l) => l.unitPrice !== undefined);
+  const showCost = can(me.role, "costs.view") && o.lines.some((l) => l.inputPrice !== undefined || l.code);
   const canWrite = can(me.role, "orders.confirm");
   const canConfirm = canWrite && o.status === "SENT";
   const changed = o.lines.filter((l) => l.priceChanged);
@@ -63,6 +64,7 @@ export default async function OrderDetailPage({ params, searchParams }: { params
                 <th className="p-3 text-right font-semibold">{t("receivedQty")}</th>
                 {showPrice && <th className="p-3 text-right font-semibold">{t("unitPrice")}</th>}
                 {showPrice && <th className="p-3 text-right font-semibold">{t("lineAmount")}</th>}
+                {showCost && <th className="p-3 text-right font-semibold">{t("inputPrice")}</th>}
                 <th className="p-3 font-semibold">{t("lineEta")}</th>
               </tr>
             </thead>
@@ -79,6 +81,12 @@ export default async function OrderDetailPage({ params, searchParams }: { params
                     </td>
                   )}
                   {showPrice && <td className="p-3 text-right tabular-nums">{l.lineAmount !== undefined ? money(l.lineAmount) : ""}</td>}
+                  {showCost && (
+                    <td className="p-3 text-right tabular-nums">
+                      {l.inputPrice !== undefined ? fmtMoney(l.inputPrice, l.inputCurrency ?? o.currency, locale) : <Link href={`/gia-dau-vao/theo-ma?q=${encodeURIComponent(l.code ?? "")}`} className="text-accent">{t("enterCost")}</Link>}
+                      {l.grossPct !== undefined && <div className="text-[12px] text-ok-fg">{t("grossPct", { pct: new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(l.grossPct) })}</div>}
+                    </td>
+                  )}
                   <td className="p-3">
                     {canConfirm
                       ? <input type="date" name={`line_${l.id}`} defaultValue={l.supplierEtaDate?.slice(0, 10) ?? ""} aria-label={t("lineEta")} className="input py-1.5 text-[13px]" />

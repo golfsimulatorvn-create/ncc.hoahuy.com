@@ -36,7 +36,9 @@
     "archived": "已删除供应商。",
     "priceSaved": "单价已保存。",
     "priceDeleted": "已删除价格行。",
-    "ledgerAdded": "已添加账目。"
+    "ledgerAdded": "已添加账目。",
+    "costSaved": "已保存进货价。",
+    "nochange": "没有需要保存的更改。"
   },
   "err": {
     "invalid": "数据无效。",
@@ -45,6 +47,33 @@
     "notFound": "未找到数据。",
     "unavailable": "无法连接到华辉。您输入的内容仍保留在屏幕上，请稍后再点一次。",
     "suspended": "供应商账户已暂停，请联系华辉。",
-    "failed": "操作失败，请重试。"
+    "failed": "操作失败，请重试。",
+    "tooMany": "每次最多保存 200 个编码，请分页保存。"
+  },
+  "code3": "NCC-05-03",
+  "tabSub": "二级供应商",
+  "tabCode": "按华辉物料编码",
+  "byCode": {
+    "search": "按编码或品名搜索（无需声调符号）",
+    "onlyMissing": "仅显示未填价格的编码",
+    "missingCount": "{count} 个编码",
+    "filter": "筛选",
+    "item": "编码 / 品名",
+    "qty": "已订数量",
+    "cost": "进货价",
+    "currency": "币种",
+    "sell": "售给华辉的价格",
+    "gross": "毛利",
+    "enter": "填写价格",
+    "history": "历史",
+    "historyOf": "调价历史 · {code}",
+    "noHistory": "暂无历史。",
+    "none": "无",
+    "removed": "已取消价格",
+    "empty": "采购订单或询价单中暂无物料编码。",
+    "counter": "筛选出 {shown} / {total} 个编码 · 共 {all} 个",
+    "prev": "上一页",
+    "next": "下一页",
+    "save": "保存进货价"
   }
 }
