@@ -6,6 +6,8 @@ import { DocsBlock } from "@/components/DocsBlock";
 import { CrmError } from "@/server/crmClient";
 import { getOrder, type OrderDetail } from "@/server/crmOrders";
 import { requirePerm } from "@/server/session";
+import { LineCostEditor } from "@/components/LineCostEditor";
+import { saveLineCostsAction } from "../../gia-dau-vao/line-actions";
 import { confirmOrderAction, subVendorAction } from "../actions";
 import { fmtDate, fmtMoney, STATUS_CHIP } from "../format";
 
@@ -29,6 +31,7 @@ export default async function OrderDetailPage({ params, searchParams }: { params
   }
   const showPrice = o.lines.some((l) => l.unitPrice !== undefined);
   const showCost = can(me.role, "costs.view") && o.lines.some((l) => l.inputPrice !== undefined || l.code);
+  const canEditCost = showCost && can(me.role, "costs.edit");
   const canWrite = can(me.role, "orders.confirm");
   const canConfirm = canWrite && o.status === "SENT";
   const changed = o.lines.filter((l) => l.priceChanged);
@@ -69,7 +72,7 @@ export default async function OrderDetailPage({ params, searchParams }: { params
               </tr>
             </thead>
             <tbody>
-              {o.lines.map((l) => (
+              {o.lines.map((l, i) => (
                 <tr key={l.id} className="border-t border-line align-top">
                   <td className="p-3"><div className="min-w-0 break-words font-semibold">{l.name}</div>{l.code && <div className="text-[12px] text-ink-muted">{l.code}</div>}</td>
                   <td className="p-3 text-right tabular-nums">{l.qty} {l.unit}</td>
@@ -83,7 +86,9 @@ export default async function OrderDetailPage({ params, searchParams }: { params
                   {showPrice && <td className="p-3 text-right tabular-nums">{l.lineAmount !== undefined ? money(l.lineAmount) : ""}</td>}
                   {showCost && (
                     <td className="p-3 text-right tabular-nums">
-                      {l.inputPrice !== undefined ? fmtMoney(l.inputPrice, l.inputCurrency ?? o.currency, locale) : <Link href={`/gia-dau-vao/theo-ma?q=${encodeURIComponent(l.code ?? "")}`} className="text-accent">{t("enterCost")}</Link>}
+                      {canEditCost && l.code
+                        ? <LineCostEditor i={i} code={l.code} price={l.inputPrice ?? null} currency={l.inputCurrency ?? o.currency} label={t("inputPrice")} curLabel={t("costCurrency")} placeholder={t("enterCost")} />
+                        : (l.inputPrice !== undefined ? fmtMoney(l.inputPrice, l.inputCurrency ?? o.currency, locale) : "—")}
                       {l.grossPct !== undefined && <div className="text-[12px] text-ok-fg">{t("grossPct", { pct: new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(l.grossPct) })}</div>}
                     </td>
                   )}
@@ -97,6 +102,12 @@ export default async function OrderDetailPage({ params, searchParams }: { params
             </tbody>
           </table>
         </div>
+        {canEditCost && (
+          <div className="flex flex-wrap items-center gap-3">
+            <button type="submit" form="costform" className="btn-secondary">{t("saveCost")}</button>
+            <p className="min-w-0 flex-1 text-[12px] text-ink-muted">{t("costHint")}</p>
+          </div>
+        )}
 
         {showPrice && o.total !== undefined && (
           <section className="card ml-auto grid w-full gap-1 p-4 sm:max-w-sm">
@@ -115,6 +126,14 @@ export default async function OrderDetailPage({ params, searchParams }: { params
           </section>
         )}
       </form>
+
+      {canEditCost && (
+        <form id="costform" action={saveLineCostsAction}>
+          <input type="hidden" name="back" value={`/don-mua/${o.id}`} />
+          <input type="hidden" name="key" value={`${key}-cost`} />
+          <input type="hidden" name="count" value={o.lines.length} />
+        </form>
+      )}
 
       {canWrite && (
         <form action={subVendorAction} className="card grid gap-3 p-4 sm:grid-cols-[1fr_auto] sm:items-end">

@@ -29,7 +29,9 @@
   },
   "ok": {
     "draft": "Đã lưu nháp.",
-    "submitted": "Đã nộp báo giá."
+    "submitted": "Đã nộp báo giá.",
+    "costSaved": "Đã lưu giá đầu vào.",
+    "costNoChange": "Không có thay đổi giá đầu vào."
   },
   "err": {
     "closed": "Yêu cầu báo giá đã hết hạn hoặc không còn nhận báo giá.",
@@ -38,9 +40,20 @@
     "missing": "Cần nhập đơn giá cho mọi dòng trước khi nộp.",
     "unavailable": "Không kết nối được tới Hoa Huy. Dữ liệu bạn nhập vẫn còn trên màn hình, hãy bấm lại sau ít phút.",
     "suspended": "Tài khoản nhà cung cấp đang tạm ngừng. Vui lòng liên hệ Hoa Huy.",
-    "failed": "Không thực hiện được. Vui lòng thử lại."
+    "failed": "Không thực hiện được. Vui lòng thử lại.",
+    "costInvalid": "Giá đầu vào không hợp lệ.",
+    "costTooMany": "Quá nhiều dòng trong một lần lưu."
   },
   "inputPrice": "Giá đầu vào",
   "enterCost": "Nhập giá",
-  "grossPct": "Lãi gộp {pct}%"
+  "grossPct": "Lãi gộp {pct}%",
+  "costCurrency": "Tiền tệ giá đầu vào",
+  "saveCost": "Lưu giá đầu vào",
+  "costHint": "Giá đầu vào lưu riêng, dùng lại lần sau và không gửi cho Hoa Huy.",
+  "margin": {
+    "noCost": "Chưa có giá đầu vào, nhập bên cạnh để thấy lãi",
+    "otherCurrency": "Khác loại tiền, không tính lãi",
+    "loss": "Báo thấp hơn giá vốn: lỗ {amount} mỗi đơn vị",
+    "gain": "Lãi gộp {pct}% · {amount}"
+  }
 }

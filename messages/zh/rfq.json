@@ -29,7 +29,9 @@
   },
   "ok": {
     "draft": "草稿已保存。",
-    "submitted": "报价已提交。"
+    "submitted": "报价已提交。",
+    "costSaved": "已保存进货价。",
+    "costNoChange": "进货价没有变化。"
   },
   "err": {
     "closed": "询价单已截止或不再接受报价。",
@@ -38,9 +40,20 @@
     "missing": "提交前需填写所有行的单价。",
     "unavailable": "无法连接到华辉。您输入的内容仍保留在屏幕上，请稍后再点一次。",
     "suspended": "供应商账户已暂停，请联系华辉。",
-    "failed": "操作失败，请重试。"
+    "failed": "操作失败，请重试。",
+    "costInvalid": "进货价无效。",
+    "costTooMany": "单次保存的行数过多。"
   },
   "inputPrice": "进货价",
   "enterCost": "填写价格",
-  "grossPct": "毛利 {pct}%"
+  "grossPct": "毛利 {pct}%",
+  "costCurrency": "进货价币种",
+  "saveCost": "保存进货价",
+  "costHint": "进货价单独保存，下次可重复使用，不会发送给华辉。",
+  "margin": {
+    "noCost": "尚无进货价，请在旁边填写以查看毛利",
+    "otherCurrency": "币种不同，不计算毛利",
+    "loss": "报价低于成本：每单位亏损 {amount}",
+    "gain": "毛利率 {pct}% · {amount}"
+  }
 }
