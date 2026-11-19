@@ -7,6 +7,9 @@ import { getRfq, type RfqDetail } from "@/server/crmRfq";
 import { requirePerm } from "@/server/session";
 import { fmtDate } from "../../don-mua/format";
 import { rfqBadge } from "../badge";
+import { LineCostEditor } from "@/components/LineCostEditor";
+import { QuoteMarginHint } from "@/components/QuoteMarginHint";
+import { saveLineCostsAction } from "../../gia-dau-vao/line-actions";
 import { saveDraftAction, submitQuoteAction } from "../actions";
 
 /** NCC-03-02 Bao gia RFQ (mockup man 5). Don gia = gia ban ra cho Hoa Huy: chi Quan tri NCC thay va nhap; vai tro khac chi xem yeu cau. */
@@ -32,6 +35,7 @@ export default async function RfqQuotePage({ params, searchParams }: { params: P
   const canQuote = can(me.role, "rfq.quote") && isOpen;
   const showPrice = r.lines.some((l) => "unitPrice" in l);
   const showCost = can(me.role, "costs.view");
+  const canEditCost = showCost && can(me.role, "costs.edit");
   const key = crypto.randomUUID();
 
   return (
@@ -63,15 +67,16 @@ export default async function RfqQuotePage({ params, searchParams }: { params: P
               </tr>
             </thead>
             <tbody>
-              {r.lines.map((l) => (
+              {r.lines.map((l, i) => (
                 <tr key={l.id} className="border-t border-line align-top">
                   <td className="p-3"><div className="min-w-0 break-words font-semibold">{l.name}</div><div className="text-[12px] text-ink-muted">{l.code}</div></td>
                   <td className="p-3 text-right tabular-nums">{l.qty} {l.unit}</td>
                   {showPrice && (
                     <td className="p-3">
                       {canQuote
-                        ? <input name={`price_${l.id}`} inputMode="decimal" defaultValue={l.unitPrice ?? ""} aria-label={t("unitPrice")} className="input w-36 py-1.5 text-right" />
+                        ? <input id={`price_${l.id}`} name={`price_${l.id}`} inputMode="decimal" defaultValue={l.unitPrice ?? ""} aria-label={t("unitPrice")} className="input w-36 py-1.5 text-right" />
                         : <span className="tabular-nums">{l.unitPrice != null ? new Intl.NumberFormat(locale).format(l.unitPrice) : "—"}</span>}
+                      {canQuote && canEditCost && <QuoteMarginHint lineId={l.id} i={i} />}
                     </td>
                   )}
                   {showPrice && (
@@ -83,7 +88,9 @@ export default async function RfqQuotePage({ params, searchParams }: { params: P
                   )}
                   {showCost && (
                     <td className="p-3 text-right tabular-nums">
-                      {l.inputPrice !== undefined ? new Intl.NumberFormat(locale).format(l.inputPrice) : <Link href={`/gia-dau-vao/theo-ma?q=${encodeURIComponent(l.code)}`} className="text-accent">{t("enterCost")}</Link>}
+                      {canEditCost
+                        ? <LineCostEditor i={i} code={l.code} price={l.inputPrice ?? null} currency={l.inputCurrency ?? "VND"} label={t("inputPrice")} curLabel={t("costCurrency")} placeholder={t("enterCost")} />
+                        : (l.inputPrice !== undefined ? new Intl.NumberFormat(locale).format(l.inputPrice) : "—")}
                       {l.grossPct !== undefined && <div className="text-[12px] text-ok-fg">{t("grossPct", { pct: new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(l.grossPct) })}</div>}
                     </td>
                   )}
@@ -92,15 +99,23 @@ export default async function RfqQuotePage({ params, searchParams }: { params: P
             </tbody>
           </table>
         </div>
-        {canQuote && (
+        {(canQuote || canEditCost) && (
           <div className="flex flex-wrap items-center gap-3">
-            <button type="submit" value="draft" className="btn-secondary">{t("saveDraft")}</button>
-            <button type="submit" value="submit" formAction={submitQuoteAction} className="btn-primary">{t("submit")}</button>
-            <p className="min-w-0 flex-1 text-[12px] text-ink-muted">{t("hint")}</p>
+            {canQuote && <button type="submit" value="draft" className="btn-secondary">{t("saveDraft")}</button>}
+            {canQuote && <button type="submit" value="submit" formAction={submitQuoteAction} className="btn-primary">{t("submit")}</button>}
+            {canEditCost && <button type="submit" form="costform" className="btn-secondary">{t("saveCost")}</button>}
+            <p className="min-w-0 flex-1 text-[12px] text-ink-muted">{canQuote ? t("hint") : ""}{canEditCost ? ` ${t("costHint")}` : ""}</p>
           </div>
         )}
         {!isOpen && r.status === "DA_GUI" && <p className="rounded-lg bg-danger-bg px-3 py-2 text-danger-fg">{t("err.closed")}</p>}
       </form>
+      {canEditCost && (
+        <form id="costform" action={saveLineCostsAction}>
+          <input type="hidden" name="back" value={`/bao-gia/${r.id}`} />
+          <input type="hidden" name="key" value={`${key}-cost`} />
+          <input type="hidden" name="count" value={r.lines.length} />
+        </form>
+      )}
     </div>
   );
 }

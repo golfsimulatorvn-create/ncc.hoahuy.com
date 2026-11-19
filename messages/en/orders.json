@@ -46,7 +46,9 @@
   },
   "ok": {
     "confirmed": "Order confirmed.",
-    "saved": "Saved."
+    "saved": "Saved.",
+    "costSaved": "Input price saved.",
+    "costNoChange": "No input price changes."
   },
   "err": {
     "state": "The order is no longer awaiting confirmation. Please reload the page.",
@@ -54,9 +56,14 @@
     "suspended": "The supplier account is suspended. Please contact Hoa Huy.",
     "invalid": "Invalid data.",
     "needEta": "Please enter an estimated delivery date.",
-    "failed": "Could not complete the action. Please try again."
+    "failed": "Could not complete the action. Please try again.",
+    "costInvalid": "Input price is not valid.",
+    "costTooMany": "Too many lines in one save."
   },
   "inputPrice": "Input price",
   "enterCost": "Enter price",
-  "grossPct": "Gross margin {pct}%"
+  "grossPct": "Gross margin {pct}%",
+  "costCurrency": "Input price currency",
+  "saveCost": "Save input price",
+  "costHint": "Input prices are saved separately, reused next time and never sent to Hoa Huy."
 }

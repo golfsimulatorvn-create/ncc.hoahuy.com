@@ -46,7 +46,9 @@
   },
   "ok": {
     "confirmed": "订单已确认。",
-    "saved": "已保存。"
+    "saved": "已保存。",
+    "costSaved": "已保存进货价。",
+    "costNoChange": "进货价没有变化。"
   },
   "err": {
     "state": "订单已不处于待确认状态，请刷新页面。",
@@ -54,9 +56,14 @@
     "suspended": "供应商账户已暂停，请联系华辉。",
     "invalid": "数据无效。",
     "needEta": "请填写预计交期。",
-    "failed": "操作失败，请重试。"
+    "failed": "操作失败，请重试。",
+    "costInvalid": "进货价无效。",
+    "costTooMany": "单次保存的行数过多。"
   },
   "inputPrice": "进货价",
   "enterCost": "填写价格",
-  "grossPct": "毛利 {pct}%"
+  "grossPct": "毛利 {pct}%",
+  "costCurrency": "进货价币种",
+  "saveCost": "保存进货价",
+  "costHint": "进货价单独保存，下次可重复使用，不会发送给华辉。"
 }

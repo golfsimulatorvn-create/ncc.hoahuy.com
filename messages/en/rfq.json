@@ -29,7 +29,9 @@
   },
   "ok": {
     "draft": "Draft saved.",
-    "submitted": "Quote submitted."
+    "submitted": "Quote submitted.",
+    "costSaved": "Input price saved.",
+    "costNoChange": "No input price changes."
   },
   "err": {
     "closed": "The RFQ has passed its deadline or no longer accepts quotes.",
@@ -38,9 +40,20 @@
     "missing": "Enter a unit price on every line before submitting.",
     "unavailable": "Cannot reach Hoa Huy. What you entered is still on screen; press the button again in a few minutes.",
     "suspended": "The supplier account is suspended. Please contact Hoa Huy.",
-    "failed": "Could not complete the action. Please try again."
+    "failed": "Could not complete the action. Please try again.",
+    "costInvalid": "Input price is not valid.",
+    "costTooMany": "Too many lines in one save."
   },
   "inputPrice": "Input price",
   "enterCost": "Enter price",
-  "grossPct": "Gross margin {pct}%"
+  "grossPct": "Gross margin {pct}%",
+  "costCurrency": "Input price currency",
+  "saveCost": "Save input price",
+  "costHint": "Input prices are saved separately, reused next time and never sent to Hoa Huy.",
+  "margin": {
+    "noCost": "No input price yet, enter it beside to see the margin",
+    "otherCurrency": "Different currency, margin not calculated",
+    "loss": "Quote is below cost: loss of {amount} per unit",
+    "gain": "Gross margin {pct}% · {amount}"
+  }
 }

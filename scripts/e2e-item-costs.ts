@@ -94,7 +94,7 @@ async function main() {
       await p.goto(`${BASE}/don-mua/${seed.sentId}`);
       vis = await p.locator("main").innerText();
       html = await p.content();
-      check(`${tg} don mua / STAFF: co cot Gia dau vao + 200.000, khong co don gia`, vis.toLowerCase().includes(TXT.vi.cost.toLowerCase()) && /200\.000/.test(vis) && !/285[.,]?000/.test(html) && !vis.includes("Đơn giá"), vis.slice(0, 300));
+      check(`${tg} don mua / STAFF: co cot Gia dau vao + 200.000, khong co don gia`, vis.toLowerCase().includes(TXT.vi.cost.toLowerCase()) && (await p.locator("#cost_p_0").inputValue()) === "200000" && !/285[.,]?000/.test(html) && !vis.includes("Đơn giá"), vis.slice(0, 300));
       await ctx.browser()?.close();
 
       // ---- Quan tri: gia ban + lai gop + lich su
@@ -114,7 +114,7 @@ async function main() {
       check(`${tg} lich su doi gia hien dong "chua co → 200.000"`, /chưa có/.test(hv) && /200\.000/.test(hv), hv.slice(-200));
       await p.goto(`${BASE}/don-mua/${seed.sentId}`);
       vis = await p.locator("main").innerText();
-      check(`${tg} don mua / ADMIN: don gia + gia dau vao + lai gop 29,8%`, /285\.000/.test(vis) && /200\.000/.test(vis) && /29,8%/.test(vis), vis.slice(0, 400));
+      check(`${tg} don mua / ADMIN: don gia + gia dau vao + lai gop 29,8%`, /285\.000/.test(vis) && (await p.locator("#cost_p_0").inputValue()) === "200000" && /29,8%/.test(vis), vis.slice(0, 400));
       await ctx.browser()?.close();
 
       // ---- Xem gia von: chi doc
