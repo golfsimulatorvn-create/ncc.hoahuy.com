@@ -23,7 +23,7 @@ type Seed = { supplierId: number; apiKey: string; rfqId: number; rfqCode: string
 async function main() {
   const { db } = await import("../src/server/db");
   const { encryptSecret, hashPassword, hashToken, randomToken } = await import("../src/server/crypto");
-  const seed = JSON.parse(crmScript("seed").split("\n").find((l) => l.startsWith("JSON:"))!.slice(5)) as Seed;
+  let seed = JSON.parse(crmScript("seed").split("\n").find((l) => l.startsWith("JSON:"))!.slice(5)) as Seed;
   const tag = `er${Date.now()}`;
   const cred = await db.supplierCredential.create({ data: { crmSupplierId: seed.supplierId, supplierCode: tag, supplierName: `NCC ${tag}`, apiKeyEnc: encryptSecret(seed.apiKey) } });
   const users: Record<string, { id: number; token: string }> = {};
@@ -41,8 +41,17 @@ async function main() {
   };
 
   try {
+    let firstEngine = true;
     for (const engine of (["desktop", "iphone"] as const).filter((e) => ENGINE === "all" || e === ENGINE)) {
       const tg = `[${engine}]`;
+      // Moi trinh duyet can du lieu moi: lan chay truoc da nop bao gia nen RFQ khong con "Cho bao gia" (loi chay gop da co tu truoc).
+      if (!firstEngine) {
+        const s2 = JSON.parse(crmScript("seed").split("\n").find((l) => l.startsWith("JSON:"))!.slice(5)) as Seed;
+        await db.supplierCredential.update({ where: { id: cred.id }, data: { crmSupplierId: s2.supplierId, apiKeyEnc: encryptSecret(s2.apiKey) } });
+        crmScript("clean", String(seed.supplierId));
+        seed = s2;
+      }
+      firstEngine = false;
       let ctx = await ctxFor(engine, "ADMIN");
       let p = await ctx.newPage();
       await p.goto(`${BASE}/bao-gia`);
