@@ -38,7 +38,9 @@
     "priceDeleted": "Price line deleted.",
     "ledgerAdded": "Entry added.",
     "costSaved": "Input prices saved.",
-    "nochange": "Nothing changed to save."
+    "nochange": "Nothing changed to save.",
+    "subVendorAdded": "Sub-supplier added. You can now pick it in the Sub-supplier column.",
+    "archivedUnassigned": "Items unassigned and the supplier deleted."
   },
   "err": {
     "invalid": "Invalid data.",
@@ -48,7 +50,8 @@
     "unavailable": "Cannot reach Hoa Huy. What you entered is still on screen; press the button again in a few minutes.",
     "suspended": "The supplier account is suspended. Please contact Hoa Huy.",
     "failed": "Could not complete the action. Please try again.",
-    "tooMany": "Up to 200 codes can be saved at once. Save page by page."
+    "tooMany": "Up to 200 codes can be saved at once. Save page by page.",
+    "subVendorGone": "The chosen sub-supplier is no longer available. Reload the page and choose again."
   },
   "code3": "NCC-05-03",
   "tabSub": "Sub-suppliers",
@@ -74,6 +77,24 @@
     "counter": "{shown} / {total} codes shown · {all} in total",
     "prev": "Previous page",
     "next": "Next page",
-    "save": "Save input prices"
+    "save": "Save input prices",
+    "subVendor": "Sub-supplier",
+    "subVendorFilter": "Sub-supplier",
+    "allSubVendors": "All sub-suppliers",
+    "noSubVendor": "No sub-supplier chosen",
+    "noneChosen": "— Not chosen —",
+    "inactiveSub": "{name} (inactive)",
+    "quickAdd": "Quick-add sub-supplier",
+    "quickName": "Supplier name",
+    "quickContact": "Contact person (optional)",
+    "quickGo": "Add",
+    "subHistoryOf": "Sub-supplier change history · {code}"
+  },
+  "unassign": {
+    "title": "Delete this sub-supplier?",
+    "body": "{name} is assigned to {count} items:",
+    "effect": "If you delete it, these items go back to \"No sub-supplier chosen\". Their input prices are kept; each change is recorded in the item's history. This supplier's debt balance is not changed.",
+    "cancel": "Cancel",
+    "go": "Unassign {count} items and delete"
   }
 }

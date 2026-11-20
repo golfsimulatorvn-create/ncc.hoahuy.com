@@ -30,7 +30,7 @@
   "note": "Ghi chú",
   "confirm": "Xác nhận đơn",
   "confirmHint": "Xác nhận đơn không làm thay đổi giá. Nếu cần đổi giá, vui lòng liên hệ Hoa Huy.",
-  "subVendor": "Tên NCC thứ cấp (nếu hàng do bên khác cung cấp)",
+  "subVendor": "NCC thứ cấp",
   "save": "Lưu",
   "payments": "Thanh toán",
   "payStatus": {
@@ -65,5 +65,8 @@
   "grossPct": "Lãi gộp {pct}%",
   "costCurrency": "Tiền tệ giá đầu vào",
   "saveCost": "Lưu giá đầu vào",
-  "costHint": "Giá đầu vào lưu riêng, dùng lại lần sau và không gửi cho Hoa Huy."
+  "costHint": "Giá đầu vào lưu riêng, dùng lại lần sau và không gửi cho Hoa Huy.",
+  "subVendorNone": "— Chưa chọn —",
+  "subVendorInactive": "{name} (ngừng)",
+  "subVendorHint": "NCC thứ cấp chọn ở đây áp dụng cho mã hàng này ở mọi đơn mua và yêu cầu báo giá."
 }

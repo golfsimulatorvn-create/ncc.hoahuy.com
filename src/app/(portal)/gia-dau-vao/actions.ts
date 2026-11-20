@@ -50,8 +50,19 @@ export async function createSubVendorAction(f: FormData): Promise<void> {
 export async function archiveSubVendorAction(f: FormData): Promise<void> {
   const me = await requirePerm("costs.delete");
   const id = idOf(f);
-  try { await archiveSubVendor(me, id, key(f)); } catch (e) { go(`/gia-dau-vao/${id}`, "err", errCode(e)); }
-  go("/gia-dau-vao", "ok", "archived");
+  const unassign = String(f.get("unassign") ?? "") === "1";
+  try {
+    await archiveSubVendor(me, id, key(f), unassign);
+  } catch (e) {
+    // Dang gan cho ma hang (specs/068): quay lai trang chi tiet kem so ma + danh sach ma de hien the xac nhan.
+    if (e instanceof CrmError && e.code === "SUBVENDOR_ASSIGNED") {
+      const codes = Array.isArray(e.data?.codes) ? (e.data.codes as unknown[]).map((c) => String(c).slice(0, 60)).slice(0, 20) : [];
+      const n = Number(e.data?.assignedCount) || codes.length;
+      redirect(`/gia-dau-vao/${id}?confirm=unassign&n=${n}&codes=${encodeURIComponent(codes.join(","))}`);
+    }
+    go(`/gia-dau-vao/${id}`, "err", errCode(e));
+  }
+  go("/gia-dau-vao", "ok", unassign ? "archivedUnassigned" : "archived");
 }
 
 export async function savePriceItemAction(f: FormData): Promise<void> {

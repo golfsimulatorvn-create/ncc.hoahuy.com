@@ -109,7 +109,7 @@ async function main() {
       await p.waitForSelector("#cost_p_0", { timeout: 30000 });
       await p.waitForTimeout(800);
       const html = await p.content();
-      check(`${tg} STAFF: co o gia dau vao, KHONG thay don gia 285.000 / lai`, !/285[.,]?000/.test(html) && !/29,8%/.test(html));
+      check(`${tg} STAFF: co o gia dau vao, KHONG thay don gia 285.000 / lai`, !/285[.,]?000/.test(html) && !/29,8%/.test(html), html.match(/.{60}(285[.,]?000|29,8%).{60}/s)?.[0]);
       await p.fill("#cost_p_1", "150.000");
       await Promise.all([p.waitForURL(/ok=costSaved/), p.click(`button:has-text("${TXT.vi.save}")`)]);
       check(`${tg} STAFF: luu gia dau vao dong 2`, (await p.locator("#cost_p_1").inputValue()) === "150000" && (await p.locator("#cost_p_0").inputValue()) === "200000");

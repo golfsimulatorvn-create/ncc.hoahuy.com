@@ -12,7 +12,9 @@ export type OrderRow = {
 export type OrderLine = {
   id: number; code: string | null; name: string; unit: string; qty: number; receivedQty: number; remainingQty: number;
   supplierEtaDate: string | null; unitPrice?: number; lineAmount?: number;
-  inputPrice?: number; inputCurrency?: string; grossPct?: number; grossAmount?: number;
+  inputPrice?: number | null; inputCurrency?: string | null; grossPct?: number; grossAmount?: number;
+  /** NCC thu cap mac dinh cua ma (specs/068): luon co khoa voi vai tro xem duoc gia von, null = chua chon. */
+  subVendorId?: number | null; subVendorName?: string | null;
   priceChanged?: { from: number; to: number; at: string } | null;
 };
 export type OrderDetail = {

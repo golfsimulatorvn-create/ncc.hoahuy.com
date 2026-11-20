@@ -3,12 +3,13 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { CostTabs } from "@/components/CostTabs";
 import { can } from "@/server/permissions";
 import { CrmError } from "@/server/crmClient";
-import { getItemCostHistory, listItemCosts, type ItemCostHistoryRow, type ItemCostList } from "@/server/crmItemCosts";
+import { getItemCostFullHistory, listItemCosts, type ItemCostHistoryRow, type ItemCostList, type SubVendorHistoryRow } from "@/server/crmItemCosts";
+import { LineSubVendorSelect } from "@/components/LineSubVendorSelect";
 import { requirePerm } from "@/server/session";
 import { fmtDate, fmtMoney } from "../../don-mua/format";
-import { saveItemCostsAction } from "./actions";
+import { quickAddSubVendorAction, saveItemCostsAction } from "./actions";
 
-type SP = { q?: string; missing?: string; page?: string; hist?: string; ok?: string; err?: string };
+type SP = { q?: string; missing?: string; page?: string; ncc?: string; hist?: string; ok?: string; err?: string };
 
 /** NCC-05-03 Gia dau vao theo ma hang Hoa Huy (specs/064): moi ma trong don mua / RFQ + gia dau vao NCC tu dien, dung lai lan sau.
  * Gia ban + lai gop chi Quan tri NCC (orders.price). Du lieu rieng cua NCC, Hoa Huy khong doc. */
@@ -22,10 +23,12 @@ export default async function ItemCostsPage({ searchParams }: { searchParams: Pr
   const showSell = can(me.role, "orders.price");
 
   let data: ItemCostList | null = null;
-  let hist: ItemCostHistoryRow[] = [];
+  let hist: { price: ItemCostHistoryRow[]; subVendor: SubVendorHistoryRow[] } = { price: [], subVendor: [] };
+  // Loc theo NCC thu cap (specs/068): ncc=none hoac ncc=<id>.
+  const nccFilter: number | "none" | undefined = sp.ncc === "none" ? "none" : Number.isInteger(Number(sp.ncc)) && Number(sp.ncc) > 0 ? Number(sp.ncc) : undefined;
   try {
-    data = await listItemCosts(me, { q: sp.q, missing: sp.missing === "1", page });
-    if (sp.hist) hist = await getItemCostHistory(me, sp.hist);
+    data = await listItemCosts(me, { q: sp.q, missing: sp.missing === "1", page, subVendor: nccFilter });
+    if (sp.hist) hist = await getItemCostFullHistory(me, sp.hist);
   } catch (e) {
     if (!(e instanceof CrmError)) throw e;
   }
@@ -33,13 +36,14 @@ export default async function ItemCostsPage({ searchParams }: { searchParams: Pr
   const key = crypto.randomUUID();
   const href = (over: Record<string, string | undefined>) => {
     const p = new URLSearchParams();
-    const m: Record<string, string | undefined> = { q: sp.q, missing: sp.missing, page: sp.page, ...over };
+    const m: Record<string, string | undefined> = { q: sp.q, missing: sp.missing, page: sp.page, ncc: sp.ncc, ...over };
     for (const [k, v] of Object.entries(m)) if (v) p.set(k, v);
     const s = p.toString();
     return `/gia-dau-vao/theo-ma${s ? `?${s}` : ""}`;
   };
   const pages = data ? Math.max(1, Math.ceil(data.total / data.pageSize)) : 1;
-  const cols = 6 + (showSell ? 2 : 0);
+  const cols = 7 + (showSell ? 2 : 0);
+  const subChoices = (data?.subVendors ?? []).map((s) => ({ id: s.id, name: s.name, active: s.active }));
   const num = (v: number) => new Intl.NumberFormat(locale, { maximumFractionDigits: Number.isInteger(v) ? 0 : 3 }).format(v);
 
   return (
@@ -58,8 +62,29 @@ export default async function ItemCostsPage({ searchParams }: { searchParams: Pr
           {t("byCode.onlyMissing")}
           {data ? <span className="chip bg-warn-bg text-warn-fg">{t("byCode.missingCount", { count: data.missingCount })}</span> : null}
         </label>
+        <label className="grid min-w-0 gap-0.5 text-[12px] text-ink-muted">{t("byCode.subVendorFilter")}
+          <select name="ncc" defaultValue={sp.ncc ?? ""} aria-label={t("byCode.subVendorFilter")} className="input min-h-[44px] min-w-0 text-[13.5px] text-ink">
+            <option value="">{t("byCode.allSubVendors")}</option>
+            <option value="none">{t("byCode.noSubVendor")}</option>
+            {subChoices.map((s) => <option key={s.id} value={s.id}>{s.active ? s.name : t("byCode.inactiveSub", { name: s.name })}</option>)}
+          </select>
+        </label>
         <button type="submit" className="btn-secondary">{t("byCode.filter")}</button>
       </form>
+
+      {canEdit && (
+        <form action={quickAddSubVendorAction} className="card flex min-w-0 flex-wrap items-end gap-3 border-dashed p-3" data-testid="quick-add-sub">
+          <input type="hidden" name="key" value={`${key}-qa`} />
+          <input type="hidden" name="ret_q" value={sp.q ?? ""} />
+          <input type="hidden" name="ret_missing" value={sp.missing ?? ""} />
+          <input type="hidden" name="ret_page" value={sp.page ?? ""} />
+          <input type="hidden" name="ret_ncc" value={sp.ncc ?? ""} />
+          <div className="basis-full font-semibold">{t("byCode.quickAdd")}</div>
+          <label className="field min-w-0 flex-[2_1_240px]">{t("byCode.quickName")}<input name="name" required maxLength={200} className="input min-h-[44px]" /></label>
+          <label className="field min-w-0 flex-[1_1_180px]">{t("byCode.quickContact")}<input name="contactName" maxLength={200} className="input min-h-[44px]" /></label>
+          <button type="submit" className="btn-primary">{t("byCode.quickGo")}</button>
+        </form>
+      )}
 
       <form action={saveItemCostsAction} className="card grid min-w-0">
         <input type="hidden" name="key" value={key} />
@@ -67,11 +92,13 @@ export default async function ItemCostsPage({ searchParams }: { searchParams: Pr
         <input type="hidden" name="ret_q" value={sp.q ?? ""} />
         <input type="hidden" name="ret_missing" value={sp.missing ?? ""} />
         <input type="hidden" name="ret_page" value={sp.page ?? ""} />
+        <input type="hidden" name="ret_ncc" value={sp.ncc ?? ""} />
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[680px] border-collapse">
+          <table className="w-full min-w-[900px] border-collapse">
             <thead>
               <tr className="bg-surface-sunk text-left text-[12px] uppercase tracking-wide text-ink-2">
                 <th className="p-3 font-semibold">{t("byCode.item")}</th>
+                <th className="p-3 font-semibold">{t("byCode.subVendor")}</th>
                 <th className="p-3 font-semibold">{t("unit")}</th>
                 <th className="p-3 text-right font-semibold">{t("byCode.qty")}</th>
                 <th className="p-3 text-right font-semibold">{t("byCode.cost")}</th>
@@ -85,6 +112,11 @@ export default async function ItemCostsPage({ searchParams }: { searchParams: Pr
               {rows.map((r, i) => (
                 <tr key={r.code} className="border-t border-line align-middle">
                   <td className="min-w-0 break-words p-3"><div className="font-semibold">{r.code}</div><div className="text-[12px] text-ink-muted">{r.name}</div></td>
+                  <td className="min-w-[200px] p-3">
+                    {canEdit
+                      ? <LineSubVendorSelect form="" i={i} code={r.code} current={r.subVendorId != null ? { id: r.subVendorId, name: r.subVendorName ?? "" } : null} options={subChoices} label={t("byCode.subVendor")} noneLabel={t("byCode.noneChosen")} inactiveLabel={(name) => t("byCode.inactiveSub", { name })} />
+                      : <span className="min-w-0 break-words">{r.subVendorName ?? "—"}</span>}
+                  </td>
                   <td className="p-3">{r.unit}</td>
                   <td className="p-3 text-right tabular-nums">{num(r.qtyOrdered)}</td>
                   <td className="p-3 text-right">
@@ -126,16 +158,29 @@ export default async function ItemCostsPage({ searchParams }: { searchParams: Pr
       </form>
 
       {sp.hist && (
-        <section className="card grid gap-2 p-4">
-          <h2 className="text-[15px] font-bold">{t("byCode.historyOf", { code: sp.hist })}</h2>
-          {hist.length === 0 && <p className="text-ink-muted">{t("byCode.noHistory")}</p>}
-          {hist.map((h, i) => (
-            <div key={i} className="flex flex-wrap gap-x-4 gap-y-1 text-[13px]">
-              <span>{fmtDate(h.at, locale)}</span>
-              <span className="tabular-nums">{h.from == null ? t("byCode.none") : fmtMoney(h.from, h.currency, locale)} → {h.to == null ? t("byCode.removed") : fmtMoney(h.to, h.currency, locale)}</span>
-              <span className="text-ink-muted">{h.by ?? ""}</span>
-            </div>
-          ))}
+        <section className="card grid gap-3 p-4 md:grid-cols-2">
+          <div className="grid content-start gap-2">
+            <h2 className="text-[15px] font-bold">{t("byCode.historyOf", { code: sp.hist })}</h2>
+            {hist.price.length === 0 && <p className="text-ink-muted">{t("byCode.noHistory")}</p>}
+            {hist.price.map((h, i) => (
+              <div key={i} className="flex flex-wrap gap-x-4 gap-y-1 text-[13px]">
+                <span>{fmtDate(h.at, locale)}</span>
+                <span className="tabular-nums">{h.from == null ? t("byCode.none") : fmtMoney(h.from, h.currency, locale)} → {h.to == null ? t("byCode.removed") : fmtMoney(h.to, h.currency, locale)}</span>
+                <span className="text-ink-muted">{h.by ?? ""}</span>
+              </div>
+            ))}
+          </div>
+          <div className="grid content-start gap-2 md:border-l md:border-line md:pl-4" data-testid="sub-history">
+            <h2 className="text-[15px] font-bold">{t("byCode.subHistoryOf", { code: sp.hist })}</h2>
+            {hist.subVendor.length === 0 && <p className="text-ink-muted">{t("byCode.noHistory")}</p>}
+            {hist.subVendor.map((h, i) => (
+              <div key={i} className="flex flex-wrap gap-x-4 gap-y-1 text-[13px]">
+                <span>{fmtDate(h.at, locale)}</span>
+                <span className="min-w-0 break-words">{h.fromName ?? t("byCode.noneChosen")} → {h.toName ?? t("byCode.noneChosen")}</span>
+                <span className="text-ink-muted">{h.by ?? ""}</span>
+              </div>
+            ))}
+          </div>
         </section>
       )}
     </div>

@@ -38,7 +38,9 @@
     "priceDeleted": "Đã xóa dòng giá.",
     "ledgerAdded": "Đã thêm dòng sổ.",
     "costSaved": "Đã lưu giá đầu vào.",
-    "nochange": "Không có thay đổi để lưu."
+    "nochange": "Không có thay đổi để lưu.",
+    "subVendorAdded": "Đã thêm nhà cung cấp thứ cấp. Giờ bạn chọn được ở cột NCC thứ cấp.",
+    "archivedUnassigned": "Đã gỡ gắn các mã hàng và xóa nhà cung cấp."
   },
   "err": {
     "invalid": "Dữ liệu không hợp lệ.",
@@ -48,7 +50,8 @@
     "unavailable": "Không kết nối được tới Hoa Huy. Dữ liệu bạn nhập vẫn còn trên màn hình, hãy bấm lại sau ít phút.",
     "suspended": "Tài khoản nhà cung cấp đang tạm ngừng. Vui lòng liên hệ Hoa Huy.",
     "failed": "Không thực hiện được. Vui lòng thử lại.",
-    "tooMany": "Mỗi lần lưu có tối đa 200 mã. Hãy lưu từng trang."
+    "tooMany": "Mỗi lần lưu có tối đa 200 mã. Hãy lưu từng trang.",
+    "subVendorGone": "Nhà cung cấp thứ cấp đã chọn không còn dùng được. Hãy tải lại trang rồi chọn lại."
   },
   "code3": "NCC-05-03",
   "tabSub": "NCC thứ cấp",
@@ -74,6 +77,24 @@
     "counter": "{shown} / {total} mã đang lọc · tổng {all} mã",
     "prev": "Trang trước",
     "next": "Trang sau",
-    "save": "Lưu giá đầu vào"
+    "save": "Lưu giá đầu vào",
+    "subVendor": "NCC thứ cấp",
+    "subVendorFilter": "NCC thứ cấp",
+    "allSubVendors": "Tất cả NCC",
+    "noSubVendor": "Chưa chọn NCC",
+    "noneChosen": "— Chưa chọn —",
+    "inactiveSub": "{name} (ngừng)",
+    "quickAdd": "Thêm nhanh NCC thứ cấp",
+    "quickName": "Tên nhà cung cấp",
+    "quickContact": "Người liên hệ (không bắt buộc)",
+    "quickGo": "Thêm",
+    "subHistoryOf": "Lịch sử đổi NCC thứ cấp · {code}"
+  },
+  "unassign": {
+    "title": "Xóa nhà cung cấp thứ cấp?",
+    "body": "Nhà cung cấp {name} đang được gắn cho {count} mã hàng:",
+    "effect": "Nếu xóa, các mã này sẽ về \"Chưa chọn NCC\". Giá đầu vào của các mã được giữ nguyên; việc đổi được ghi vào lịch sử từng mã. Công nợ của nhà cung cấp này không bị thay đổi.",
+    "cancel": "Hủy",
+    "go": "Gỡ gắn {count} mã và xóa"
   }
 }
