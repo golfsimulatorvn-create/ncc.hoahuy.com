@@ -30,7 +30,7 @@
   "note": "Note",
   "confirm": "Confirm order",
   "confirmHint": "Confirming does not change prices. To change a price, please contact Hoa Huy.",
-  "subVendor": "Sub-supplier name (if another party supplies the goods)",
+  "subVendor": "Sub-supplier",
   "save": "Save",
   "payments": "Payments",
   "payStatus": {
@@ -65,5 +65,8 @@
   "grossPct": "Gross margin {pct}%",
   "costCurrency": "Input price currency",
   "saveCost": "Save input price",
-  "costHint": "Input prices are saved separately, reused next time and never sent to Hoa Huy."
+  "costHint": "Input prices are saved separately, reused next time and never sent to Hoa Huy.",
+  "subVendorNone": "— Not chosen —",
+  "subVendorInactive": "{name} (inactive)",
+  "subVendorHint": "The sub-supplier chosen here applies to this item code on every purchase order and RFQ."
 }

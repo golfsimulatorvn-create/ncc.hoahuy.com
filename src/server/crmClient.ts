@@ -16,10 +16,13 @@ export type CrmActor = { id: number; credentialId: number; displayName: string; 
 export class CrmError extends Error {
   status: number;
   code: string | null;
-  constructor(message: string, status: number, code: string | null = null) {
+  /** Phan JSON con lai CRM tra kem loi (vd assignedCount + codes cua SUBVENDOR_ASSIGNED, specs/068). */
+  data: Record<string, unknown> | null;
+  constructor(message: string, status: number, code: string | null = null, data: Record<string, unknown> | null = null) {
     super(message);
     this.status = status;
     this.code = code;
+    this.data = data;
   }
 }
 
@@ -96,10 +99,15 @@ export async function crmFetchRaw(actor: CrmActor, req: CrmRequest, requestId = 
 
 /** Goi CRM va doc JSON `{ ok, data, message, code }`. Loi nghiep vu -> CrmError (giu status + code de giao dien dich). */
 export async function crmCall<T = unknown>(actor: CrmActor, req: CrmRequest): Promise<T> {
+  return (await crmCallFull<T>(actor, req)).data as T;
+}
+
+/** Nhu crmCall nhung tra ca khoa cung cap voi `data` (vd `subVendorHistory` o /item-costs/history, specs/068). */
+export async function crmCallFull<T = unknown, X extends Record<string, unknown> = Record<string, unknown>>(actor: CrmActor, req: CrmRequest): Promise<{ data: T } & X> {
   const res = await crmFetchRaw(actor, req);
-  const json = (await res.json().catch(() => null)) as { ok?: boolean; data?: T; message?: string; code?: string } | null;
+  const json = (await res.json().catch(() => null)) as ({ ok?: boolean; data?: T; message?: string; code?: string } & Record<string, unknown>) | null;
   if (!res.ok || !json || json.ok === false) {
-    throw new CrmError(json?.message ?? "Lỗi từ máy chủ Hoa Huy.", res.status, json?.code ?? null);
+    throw new CrmError(json?.message ?? "Lỗi từ máy chủ Hoa Huy.", res.status, json?.code ?? null, json ?? null);
   }
-  return json.data as T;
+  return json as { data: T } & X;
 }

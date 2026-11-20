@@ -9,7 +9,7 @@ import { fmtDate, fmtMoney } from "../../don-mua/format";
 import { addLedgerAction, archiveSubVendorAction, deletePriceItemAction, savePriceItemAction } from "../actions";
 
 /** NCC-05-02 Chi tiet NCC thu cap: bang don gia mua vao + so cong no. COST_VIEWER chi doc; xoa chi Quan tri. */
-export default async function SubVendorPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ ok?: string; err?: string }> }) {
+export default async function SubVendorPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ ok?: string; err?: string; confirm?: string; n?: string; codes?: string }> }) {
   const me = await requirePerm("costs.view");
   const t = await getTranslations("costs");
   const locale = await getLocale();
@@ -136,6 +136,22 @@ export default async function SubVendorPage({ params, searchParams }: { params: 
           </form>
         )}
       </section>
+
+      {canDelete && sp.confirm === "unassign" && (
+        <form action={archiveSubVendorAction} className="card grid gap-3 border-warn-fg p-4" role="alertdialog" aria-label={t("unassign.title")} data-testid="unassign-confirm">
+          <input type="hidden" name="id" value={v.id} /><input type="hidden" name="key" value={`${key}-unassign`} /><input type="hidden" name="unassign" value="1" />
+          <h2 className="text-[15px] font-bold">{t("unassign.title")}</h2>
+          <p>{t("unassign.body", { name: v.name, count: Math.max(0, Number(sp.n) || 0) })}</p>
+          <ul className="grid gap-0.5 rounded-lg bg-surface-sunk px-3 py-2 text-[13px]">
+            {(sp.codes ?? "").split(",").filter(Boolean).slice(0, 20).map((c) => <li key={c}>{c}</li>)}
+          </ul>
+          <p className="rounded-lg bg-warn-bg px-3 py-2 text-warn-fg">{t("unassign.effect")}</p>
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            <Link href={`/gia-dau-vao/${v.id}`} className="btn-secondary">{t("unassign.cancel")}</Link>
+            <button type="submit" className="btn-primary" data-testid="unassign-go">{t("unassign.go", { count: Math.max(0, Number(sp.n) || 0) })}</button>
+          </div>
+        </form>
+      )}
 
       {canDelete && (
         <form action={archiveSubVendorAction} className="card flex flex-wrap items-center gap-3 p-4">

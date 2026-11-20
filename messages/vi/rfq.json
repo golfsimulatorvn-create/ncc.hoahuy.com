@@ -55,5 +55,9 @@
     "otherCurrency": "Khác loại tiền, không tính lãi",
     "loss": "Báo thấp hơn giá vốn: lỗ {amount} mỗi đơn vị",
     "gain": "Lãi gộp {pct}% · {amount}"
-  }
+  },
+  "subVendor": "NCC thứ cấp",
+  "subVendorNone": "— Chưa chọn —",
+  "subVendorInactive": "{name} (ngừng)",
+  "subVendorHint": "NCC thứ cấp chọn ở đây áp dụng cho mã hàng này ở mọi đơn mua và yêu cầu báo giá."
 }

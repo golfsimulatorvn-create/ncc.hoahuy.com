@@ -38,7 +38,9 @@
     "priceDeleted": "已删除价格行。",
     "ledgerAdded": "已添加账目。",
     "costSaved": "已保存进货价。",
-    "nochange": "没有需要保存的更改。"
+    "nochange": "没有需要保存的更改。",
+    "subVendorAdded": "已添加二级供应商，现在可在“二级供应商”列选择。",
+    "archivedUnassigned": "已解除相关物料的关联并删除该供应商。"
   },
   "err": {
     "invalid": "数据无效。",
@@ -48,7 +50,8 @@
     "unavailable": "无法连接到华辉。您输入的内容仍保留在屏幕上，请稍后再点一次。",
     "suspended": "供应商账户已暂停，请联系华辉。",
     "failed": "操作失败，请重试。",
-    "tooMany": "每次最多保存 200 个编码，请分页保存。"
+    "tooMany": "每次最多保存 200 个编码，请分页保存。",
+    "subVendorGone": "所选二级供应商已不可用，请刷新页面后重新选择。"
   },
   "code3": "NCC-05-03",
   "tabSub": "二级供应商",
@@ -74,6 +77,24 @@
     "counter": "筛选出 {shown} / {total} 个编码 · 共 {all} 个",
     "prev": "上一页",
     "next": "下一页",
-    "save": "保存进货价"
+    "save": "保存进货价",
+    "subVendor": "二级供应商",
+    "subVendorFilter": "二级供应商",
+    "allSubVendors": "全部二级供应商",
+    "noSubVendor": "未选二级供应商",
+    "noneChosen": "— 未选择 —",
+    "inactiveSub": "{name}（已停用）",
+    "quickAdd": "快速添加二级供应商",
+    "quickName": "供应商名称",
+    "quickContact": "联系人（选填）",
+    "quickGo": "添加",
+    "subHistoryOf": "二级供应商变更记录 · {code}"
+  },
+  "unassign": {
+    "title": "删除该二级供应商？",
+    "body": "供应商 {name} 已关联 {count} 个物料编码：",
+    "effect": "删除后这些物料将恢复为“未选二级供应商”。物料的进货价保持不变；每次变更都会记入该物料的记录。该供应商的欠款余额不受影响。",
+    "cancel": "取消",
+    "go": "解除 {count} 个物料并删除"
   }
 }

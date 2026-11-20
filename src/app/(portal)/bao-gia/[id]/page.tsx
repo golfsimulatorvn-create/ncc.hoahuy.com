@@ -8,6 +8,8 @@ import { requirePerm } from "@/server/session";
 import { fmtDate } from "../../don-mua/format";
 import { rfqBadge } from "../badge";
 import { LineCostEditor } from "@/components/LineCostEditor";
+import { LineSubVendorSelect } from "@/components/LineSubVendorSelect";
+import { listSubVendors } from "@/server/crmCosts";
 import { QuoteMarginHint } from "@/components/QuoteMarginHint";
 import { saveLineCostsAction } from "../../gia-dau-vao/line-actions";
 import { saveDraftAction, submitQuoteAction } from "../actions";
@@ -36,6 +38,8 @@ export default async function RfqQuotePage({ params, searchParams }: { params: P
   const showPrice = r.lines.some((l) => "unitPrice" in l);
   const showCost = can(me.role, "costs.view");
   const canEditCost = showCost && can(me.role, "costs.edit");
+  // NCC thu cap mac dinh theo ma (specs/068): danh sach chon ngay tren dong (loi CRM -> chi hien ten dang gan).
+  const subOptions = canEditCost ? await listSubVendors(me).then((rows) => rows.map((x) => ({ id: x.id, name: x.name, active: x.isActive }))).catch(() => []) : [];
   const key = crypto.randomUUID();
 
   return (
@@ -56,10 +60,11 @@ export default async function RfqQuotePage({ params, searchParams }: { params: P
         <input type="hidden" name="id" value={r.id} />
         <input type="hidden" name="key" value={key} />
         <div className="card overflow-x-auto">
-          <table className="w-full min-w-[600px] border-collapse">
+          <table className="w-full min-w-[720px] border-collapse">
             <thead>
               <tr className="bg-surface-sunk text-left text-[12px] uppercase tracking-wide text-ink-2">
                 <th className="p-3 font-semibold">{t("item")}</th>
+                {showCost && <th className="p-3 font-semibold">{t("subVendor")}</th>}
                 <th className="p-3 text-right font-semibold">{t("qty")}</th>
                 {showPrice && <th className="p-3 font-semibold">{t("unitPrice")}</th>}
                 {showPrice && <th className="p-3 font-semibold">{t("leadDays")}</th>}
@@ -70,6 +75,13 @@ export default async function RfqQuotePage({ params, searchParams }: { params: P
               {r.lines.map((l, i) => (
                 <tr key={l.id} className="border-t border-line align-top">
                   <td className="p-3"><div className="min-w-0 break-words font-semibold">{l.name}</div><div className="text-[12px] text-ink-muted">{l.code}</div></td>
+                  {showCost && (
+                    <td className="min-w-[180px] p-3">
+                      {canEditCost
+                        ? <LineSubVendorSelect i={i} code={l.code} current={l.subVendorId != null ? { id: l.subVendorId, name: l.subVendorName ?? "" } : null} options={subOptions} label={t("subVendor")} noneLabel={t("subVendorNone")} inactiveLabel={(name) => t("subVendorInactive", { name })} />
+                        : <span className="min-w-0 break-words">{l.subVendorName ?? "—"}</span>}
+                    </td>
+                  )}
                   <td className="p-3 text-right tabular-nums">{l.qty} {l.unit}</td>
                   {showPrice && (
                     <td className="p-3">
@@ -90,7 +102,7 @@ export default async function RfqQuotePage({ params, searchParams }: { params: P
                     <td className="p-3 text-right tabular-nums">
                       {canEditCost
                         ? <LineCostEditor i={i} code={l.code} price={l.inputPrice ?? null} currency={l.inputCurrency ?? "VND"} label={t("inputPrice")} curLabel={t("costCurrency")} placeholder={t("enterCost")} />
-                        : (l.inputPrice !== undefined ? new Intl.NumberFormat(locale).format(l.inputPrice) : "—")}
+                        : (l.inputPrice != null ? new Intl.NumberFormat(locale).format(l.inputPrice) : "—")}
                       {l.grossPct !== undefined && <div className="text-[12px] text-ok-fg">{t("grossPct", { pct: new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(l.grossPct) })}</div>}
                     </td>
                   )}

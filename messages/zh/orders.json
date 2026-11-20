@@ -30,7 +30,7 @@
   "note": "备注",
   "confirm": "确认订单",
   "confirmHint": "确认订单不会改变价格。如需调价，请联系华辉。",
-  "subVendor": "二级供应商名称（如货物由他方提供）",
+  "subVendor": "二级供应商",
   "save": "保存",
   "payments": "付款",
   "payStatus": {
@@ -65,5 +65,8 @@
   "grossPct": "毛利 {pct}%",
   "costCurrency": "进货价币种",
   "saveCost": "保存进货价",
-  "costHint": "进货价单独保存，下次可重复使用，不会发送给华辉。"
+  "costHint": "进货价单独保存，下次可重复使用，不会发送给华辉。",
+  "subVendorNone": "— 未选择 —",
+  "subVendorInactive": "{name}（已停用）",
+  "subVendorHint": "此处选择的二级供应商适用于该物料编码在所有采购单和询价单中的情况。"
 }

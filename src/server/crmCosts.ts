@@ -14,8 +14,9 @@ export const listSubVendors = (u: PortalUser) => crmCall<SubVendorRow[]>(actorOf
 export const getSubVendor = (u: PortalUser, id: number) => crmCall<SubVendorDetail>(actorOf(u), { path: `/api/supplier/sub-vendors/${id}` });
 export const createSubVendor = (u: PortalUser, body: { name: string; contactName?: string | null; phone?: string | null; note?: string | null }, key: string) =>
   crmCall<{ id: number }>(actorOf(u), { method: "POST", path: "/api/supplier/sub-vendors", json: body, idempotencyKey: key });
-export const archiveSubVendor = (u: PortalUser, id: number, key: string) =>
-  crmCall(actorOf(u), { method: "DELETE", path: `/api/supplier/sub-vendors/${id}`, idempotencyKey: key });
+/** unassign = true: go gan moi ma dang gan NCC thu cap nay roi xoa mem (sau khi nguoi dung xac nhan, specs/068). */
+export const archiveSubVendor = (u: PortalUser, id: number, key: string, unassign = false) =>
+  crmCall(actorOf(u), { method: "DELETE", path: `/api/supplier/sub-vendors/${id}${unassign ? "?unassign=1" : ""}`, idempotencyKey: key });
 export const savePriceItem = (u: PortalUser, id: number, body: { id?: number | null; itemName: string; unit: string; unitPrice: number; note?: string | null }, key: string) =>
   crmCall(actorOf(u), { method: "PUT", path: `/api/supplier/sub-vendors/${id}/price-items`, json: body, idempotencyKey: key });
 export const deletePriceItem = (u: PortalUser, id: number, itemId: number, key: string) =>

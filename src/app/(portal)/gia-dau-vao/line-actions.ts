@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { CrmError } from "@/server/crmClient";
-import { saveItemCosts } from "@/server/crmItemCosts";
+import { saveItemCosts, type ItemCostSave } from "@/server/crmItemCosts";
 import { parseMoney } from "@/server/parseMoney";
 import { requirePerm } from "@/server/session";
 
@@ -19,7 +19,7 @@ export async function saveLineCostsAction(f: FormData): Promise<void> {
   const me = await requirePerm("costs.edit");
   const path = safeBack(String(f.get("back") ?? ""));
   const n = Math.min(Number(f.get("count")) || 0, 1000);
-  const items: { code: string; unitCost: number | null; currency: string }[] = [];
+  const items: ItemCostSave[] = [];
   for (let i = 0; i < n; i++) {
     const code = String(f.get(`c_${i}`) ?? "").trim();
     const raw = String(f.get(`p_${i}`) ?? "");
@@ -27,10 +27,24 @@ export async function saveLineCostsAction(f: FormData): Promise<void> {
     const currency = String(f.get(`cur_${i}`) ?? "VND").toUpperCase();
     const origCur = String(f.get(`oc_${i}`) ?? "VND").toUpperCase();
     if (!code) continue;
-    if (raw.trim() === orig.trim() && currency === origCur) continue;
-    const v = parseMoney(raw);
-    if (v !== null && (!Number.isFinite(v) || v < 0)) back(path, "err", "costInvalid");
-    items.push({ code, unitCost: v, currency });
+    // Chi gui phan DA DOI: gia/tien te (unitCost) va/hoac NCC thu cap (subVendorId), specs/068.
+    const priceChanged = !(raw.trim() === orig.trim() && currency === origCur);
+    const sRaw = String(f.get(`s_${i}`) ?? "").trim();
+    const subChanged = f.has(`s_${i}`) && sRaw !== String(f.get(`os_${i}`) ?? "").trim();
+    if (!priceChanged && !subChanged) continue;
+    const item: ItemCostSave = { code };
+    if (priceChanged) {
+      const v = parseMoney(raw);
+      if (v !== null && (!Number.isFinite(v) || v < 0)) back(path, "err", "costInvalid");
+      item.unitCost = v;
+      item.currency = currency;
+    }
+    if (subChanged) {
+      const n = Number(sRaw);
+      if (sRaw !== "" && (!Number.isInteger(n) || n <= 0)) back(path, "err", "costInvalid");
+      item.subVendorId = sRaw === "" ? null : n;
+    }
+    items.push(item);
   }
   if (items.length === 0) back(path, "ok", "costNoChange");
   try {

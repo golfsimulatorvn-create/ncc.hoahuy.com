@@ -55,5 +55,9 @@
     "otherCurrency": "Different currency, margin not calculated",
     "loss": "Quote is below cost: loss of {amount} per unit",
     "gain": "Gross margin {pct}% · {amount}"
-  }
+  },
+  "subVendor": "Sub-supplier",
+  "subVendorNone": "— Not chosen —",
+  "subVendorInactive": "{name} (inactive)",
+  "subVendorHint": "The sub-supplier chosen here applies to this item code on every purchase order and RFQ."
 }
